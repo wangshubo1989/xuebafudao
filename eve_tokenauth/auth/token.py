@@ -26,6 +26,7 @@ class TokenAuthentication(TokenAuth):
         return token and self.check_auth(token, allowed_roles, resource,
                                         method)
 
+
 def parse_token(req):
     token = req.headers.get('Authorization').split()[1]
     return token, jwt.decode(token, app.config['TOKEN_SECRET'])
