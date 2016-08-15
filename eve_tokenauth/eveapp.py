@@ -1,4 +1,4 @@
-from eve_tokenauth.domain import DOMAIN
+# from eve_tokenauth.domain import DOMAIN
 from eve_tokenauth.controllers import accounts, tokens
 from eve_tokenauth.exceptions import DomainConflictException
 
@@ -10,7 +10,7 @@ class EveWithTokenAuth():
         :param Eveapp: An Eve App to modify to use token auth
         """
         self.eveapp = Eveapp
-        self.patch_existing_domain()
+        # self.patch_existing_domain()
         self.add_tokenauth_events_to_eve()
 
     def add_tokenauth_events_to_eve(self):
@@ -38,17 +38,3 @@ class EveWithTokenAuth():
 
         self.eveapp.validator = EveResthooksValidator
 
-    def patch_existing_domain(self):
-        """Patches the domain currently in use to add the accounts
-        """
-
-        overlap = set(self.eveapp.config["DOMAIN"].keys()).intersection(set(DOMAIN.keys()))
-
-        if not overlap:
-            with self.eveapp.app_context():
-                self.eveapp.config["DOMAIN"].update(DOMAIN)
-
-            for k in DOMAIN.keys():
-                self.eveapp.register_resource(k, DOMAIN[k])
-        else:
-            raise DomainConflictException()

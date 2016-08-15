@@ -53,33 +53,15 @@ This needs better docs. The gist is you:
 3) Launch your app
 4) Register an account
 
-    curl
-        -X POST
-        -H "Content-Type: application/json" 
-        -d '{ 
-                "first_name"="Navin R.", 
-                "last_name"="Johnson", 
-                "email"="a@a.net", 
-                "password"="password", 
-                "is_email_confirmed"=true
-            }' 
-        http://localhost:5000/api/v1/accounts
+    curl -X POST -H "Content-Type: application/json" -d '{"first_name":"Navin R.","last_name":"Johnson","email":"a@a.net","password":"password","is_email_confirmed":true}' http://localhost:5000/api/v1/accounts
         
 5) Get a token with that account
 
-    curl
-        -X GET
-        -H "Content-Type: application/json" 
-        -u "a@a.net:password"
-        http://localhost:5000/api/v1/tokens
+    curl -X GET -H "Content-Type: application/json" -u "a@a.net:password" http://localhost:5000/api/v1/tokens
         
 6) Use that token to hit your endpoint
 
-    curl
-        -X GET
-        -H "Content-Type: application/json" 
-        -H "Authorization: Bearer TokenTokenTokenTokenToken..."
-        http://localhost:5000/api/v1/books
+curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE0NzEyNDE4MzUsInVzZXIiOnsidHdpdHRlciI6Ik5vbmUiLCJnb29nbGUiOiJOb25lIiwiZmFjZWJvb2siOiJOb25lIiwiZW1haWwiOiJhQGEubmV0IiwiaWQiOiI1N2IxNWQ5ODlkN2Q5YjQ4NGM4NTVhM2UifSwiZXhwIjoxNDcxODQ2NjM1fQ.ZvnTv7qW1_oT5_CNX8WsjVng1RSub75H9G5MW9_Hjdk" http://localhost:5000/api/v1/books
 
 ### Roadmap
 

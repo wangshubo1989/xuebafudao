@@ -2,8 +2,8 @@ from eve_tokenauth.auth.token import TokenAuthentication
 
 MONGO_HOST = 'localhost'
 MONGO_PORT = 27017
-MONGO_USERNAME = 'user'
-MONGO_PASSWORD = 'user'
+MONGO_USERNAME = ''
+MONGO_PASSWORD = ''
 MONGO_DBNAME = 'testdb'
 
 URL_PREFIX = 'api'
