@@ -38,6 +38,6 @@ def create_jwt_token(user, expiration):
         exp=expiration,
         user=dict(
             id=str(user['_id']),
-            email=str(user.get('email'))))
+            username=str(user.get('username'))))
     token = jwt.encode(payload, app.config['TOKEN_SECRET'])
     return token

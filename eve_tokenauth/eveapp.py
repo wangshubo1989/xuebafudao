@@ -21,7 +21,7 @@ class EveWithTokenAuth():
         """
 
         # Upon inserting an account, hash the password for security reasons
-        self.eveapp.on_insert_accounts += accounts.hash_passwords
+        self.eveapp.on_insert_teachers += accounts.hash_passwords
 
         # Generate a token for a user
         self.eveapp.on_fetched_resource_tokens += tokens.generate_login_token_for_user

@@ -20,11 +20,11 @@ def generate_login_token_for_user(response):
     request_auth = request.authorization
 
     # get our databases
-    accounts = app.data.driver.db['accounts']
+    accounts = app.data.driver.db['teachers']
     tokens = app.data.driver.db['tokens']
 
     # get our account (at this point we've already checked basic auth through the authorization class.)
-    account = accounts.find_one({'email': request_auth.username})
+    account = accounts.find_one({'username': request_auth.username})
 
     # generate a token to put into the db for the account
     expiration = datetime.utcnow() + timedelta(days=7)

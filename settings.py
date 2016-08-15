@@ -23,7 +23,38 @@ books = {
     }
 }
 
-accounts = {
+# accounts = {
+#     'authentication': TokenAuthentication(),
+#     'datasource': {
+#         'projection': {'password': 0}  # hides password
+#     },
+#     'public_methods': ['POST'],
+#     'public_item_methods': [],
+#     'resource_methods': ['GET', 'POST'],
+#     'item_methods': ['GET', 'PUT', 'PATCH', 'DELETE'],
+#     'schema': {
+#         'first_name': {
+#             'type': 'string'
+#         },
+#         'last_name': {
+#             'type': 'string'
+#         },
+#         'password': {
+#             'type': 'string',
+#             'required': True,
+#         },
+#         'email': {
+#             'type': 'string',
+#             'required': True,
+#             'unique': True
+#         },
+#         'is_email_confirmed': {
+#             'type': 'boolean'
+#         },
+#     }
+# }
+
+teachers = {
     'authentication': TokenAuthentication(),
     'datasource': {
         'projection': {'password': 0}  # hides password
@@ -32,24 +63,24 @@ accounts = {
     'public_item_methods': [],
     'resource_methods': ['GET', 'POST'],
     'item_methods': ['GET', 'PUT', 'PATCH', 'DELETE'],
+
+    'additional_lookup': {
+        'url': 'regex("[\w]+")',
+        'field': 'username'
+    },
+
     'schema': {
-        'first_name': {
-            'type': 'string'
-        },
-        'last_name': {
-            'type': 'string'
+        'username': {
+            'type': 'string',
+            'required': True,
+            'unique': True,
         },
         'password': {
             'type': 'string',
             'required': True,
         },
-        'email': {
+        'nickname': {
             'type': 'string',
-            'required': True,
-            'unique': True
-        },
-        'is_email_confirmed': {
-            'type': 'boolean'
         },
     }
 }
@@ -72,7 +103,7 @@ tokens = {
         'account': {
             'type': 'objectid',
             'data_relation': {
-                'resource': 'accounts',
+                'resource': 'teachers',
                 'field': '_id'
             }
         }
@@ -80,7 +111,7 @@ tokens = {
 }
 
 DOMAIN = {
-    'accounts': accounts,
+    'teachers': teachers,
     'tokens': tokens,
     'books': books
 }

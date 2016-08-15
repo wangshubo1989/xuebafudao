@@ -54,11 +54,13 @@ This needs better docs. The gist is you:
 4) Register an account
 
     curl -X POST -H "Content-Type: application/json" -d '{"first_name":"Navin R.","last_name":"Johnson","email":"a@a.net","password":"password","is_email_confirmed":true}' http://localhost:5000/api/v1/accounts
-        
+    
+    curl -X POST -H "Content-Type: application/json" -d '{"username":"janreyho","password":"password","nickname":"李老师"}' http://localhost:5000/api/v1/teachers
 5) Get a token with that account
 
     curl -X GET -H "Content-Type: application/json" -u "a@a.net:password" http://localhost:5000/api/v1/tokens
-        
+    
+    curl -X GET -H "Content-Type: application/json" -u "janreyho:password" http://localhost:5000/api/v1/tokens
 6) Use that token to hit your endpoint
 
 curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer ..." http://localhost:5000/api/v1/books
