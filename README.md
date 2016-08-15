@@ -61,7 +61,7 @@ This needs better docs. The gist is you:
         
 6) Use that token to hit your endpoint
 
-curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE0NzEyNDE4MzUsInVzZXIiOnsidHdpdHRlciI6Ik5vbmUiLCJnb29nbGUiOiJOb25lIiwiZmFjZWJvb2siOiJOb25lIiwiZW1haWwiOiJhQGEubmV0IiwiaWQiOiI1N2IxNWQ5ODlkN2Q5YjQ4NGM4NTVhM2UifSwiZXhwIjoxNDcxODQ2NjM1fQ.ZvnTv7qW1_oT5_CNX8WsjVng1RSub75H9G5MW9_Hjdk" http://localhost:5000/api/v1/books
+curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer ..." http://localhost:5000/api/v1/books
 
 ### Roadmap
 
