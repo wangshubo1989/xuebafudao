@@ -46,7 +46,7 @@ teachers = {
 }
 
 students = {
-    'authentication': TokenAuthentication(),
+    # 'authentication': TokenAuthentication(),
     'datasource': {
         'projection': {'password': 0}  # hides password
     },
