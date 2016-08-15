@@ -63,7 +63,12 @@ This needs better docs. The gist is you:
     curl -X GET -H "Content-Type: application/json" -u "janreyho:password" http://localhost:5000/api/v1/tokens
 6) Use that token to hit your endpoint
 
-curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer ..." http://localhost:5000/api/v1/books
+curl -H "Content-Type: application/json" -H "Authorization: Bearer ..." -d '{"username": "janreyho", "nickname": "janrey"}' http://127.0.0.1:5000/api/v1/students
+
+### 添加学生和课程
+curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer ..." http://localhost:5000/api/v1/
+
+curl -H "Content-Type: application/json" -H "Authorization: Bearer ..." -d '{"teacherID": "57b177d89d7d9b5c12c30d4b", "studentID": "57b1a7359d7d9b6e61abef2c"}' http://localhost:5000/api/v1/courses
 
 ### Roadmap
 

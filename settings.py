@@ -14,48 +14,8 @@ TOKEN_SECRET = 'secret'
 
 SERVER_NAME = 'localhost:5000'
 
-books = {
-    'authentication': TokenAuthentication(),
-    'resource_methods': ['GET', 'POST', 'DELETE'],
-    'item_methods': ['GET', 'PUT', 'PATCH', 'DELETE'],
-    'schema': {
-        'name': {'type': 'string'}
-    }
-}
-
-# accounts = {
-#     'authentication': TokenAuthentication(),
-#     'datasource': {
-#         'projection': {'password': 0}  # hides password
-#     },
-#     'public_methods': ['POST'],
-#     'public_item_methods': [],
-#     'resource_methods': ['GET', 'POST'],
-#     'item_methods': ['GET', 'PUT', 'PATCH', 'DELETE'],
-#     'schema': {
-#         'first_name': {
-#             'type': 'string'
-#         },
-#         'last_name': {
-#             'type': 'string'
-#         },
-#         'password': {
-#             'type': 'string',
-#             'required': True,
-#         },
-#         'email': {
-#             'type': 'string',
-#             'required': True,
-#             'unique': True
-#         },
-#         'is_email_confirmed': {
-#             'type': 'boolean'
-#         },
-#     }
-# }
-
 teachers = {
-    'authentication': TokenAuthentication(),
+    # 'authentication': TokenAuthentication(),
     'datasource': {
         'projection': {'password': 0}  # hides password
     },
@@ -82,6 +42,71 @@ teachers = {
         'nickname': {
             'type': 'string',
         },
+    }
+}
+
+students = {
+    'authentication': TokenAuthentication(),
+    'datasource': {
+        'projection': {'password': 0}  # hides password
+    },
+    'public_methods': ['POST'],
+    'public_item_methods': [],
+    'resource_methods': ['GET', 'POST'],
+    'item_methods': ['GET', 'PUT', 'PATCH', 'DELETE'],
+
+    'additional_lookup': {
+        'url': 'regex("[\w]+")',
+        'field': 'username'
+    },
+
+    'schema': {
+        'username': {
+            'type': 'string',
+            'required': True,
+            'unique': True,
+        },
+        'password': {
+            'type': 'string',
+        },
+        'nickname': {
+            'type': 'string',
+        },
+    }
+}
+
+courses = {
+    # 'authentication': TokenAuthentication(),
+    'resource_methods': ['GET', 'POST', 'DELETE'],
+    'item_methods': ['GET', 'PUT', 'PATCH', 'DELETE'],
+
+    'schema': {
+        'teacherID': {
+            'type': 'objectid',
+            'required': True,
+            'data_relation': {
+                'resource': 'teachers',
+                'embeddable': True
+            },
+        },
+        'studentID': {
+            'type': 'objectid',
+            'required': True,
+            'data_relation': {
+                'resource': 'students',
+                'embeddable': True
+            },
+        },
+        'startTime': {
+            'type': 'datetime',
+        },
+        'duration': {
+            'type': 'integer',
+        },
+        'status': {
+            'type': 'string', 
+            'allowed': ['created', 'qqcontact', 'prepared','telcontact', 'preHostVisit', 'started', 'completed', 'sendReport', 'preHostVisit', 'closed']
+        }
     }
 }
 
@@ -113,5 +138,6 @@ tokens = {
 DOMAIN = {
     'teachers': teachers,
     'tokens': tokens,
-    'books': books
+    'students': students,
+    'courses': courses
 }
