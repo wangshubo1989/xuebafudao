@@ -107,3 +107,5 @@ com_crashlytics_export_strings.xml
 .db/
 
 # Settings
+
+*neteaseIM.py
