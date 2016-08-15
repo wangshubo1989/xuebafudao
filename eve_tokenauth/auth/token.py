@@ -38,9 +38,6 @@ def create_jwt_token(user, expiration):
         exp=expiration,
         user=dict(
             id=str(user['_id']),
-            email=str(user.get('email')),
-            facebook=str(user.get('facebook')),
-            google=str(user.get('google')),
-            twitter=str(user.get('twitter'))))
+            email=str(user.get('email'))))
     token = jwt.encode(payload, app.config['TOKEN_SECRET'])
     return token
