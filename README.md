@@ -71,6 +71,24 @@ This needs better docs. The gist is you:
 
     curl -H "Content-Type: application/json" -H "Authorization: Bearer ..." -d '{"teacherID": "57b177d89d7d9b5c12c30d4b", "studentID": "57b1a7359d7d9b6e61abef2c"}' http://localhost:5000/api/v1/courses
 
+### api调用方法
+    按lastname排序
+    http http://eve-demo.herokuapp.com/people\?sort\=lastname
+    http http://eve-demo.herokuapp.com/people?where=\{\"lastname\":\"Doe\"\}
+    //引号需要转义
+    http http://eve-demo.herokuapp.com/people?where={\"lastname\":\"Doe\"}
+    //空格不能出现
+    http http://eve-demo.herokuapp.com/people?where={\"location.city\":\"San%20Francisco\"}
+
+    http http://eve-demo.herokuapp.com/people?where={\"_created\":\"Sun\,%2014%20Aug%202016%2012:20:35%20GMT\"}
+    //按照时间查询
+    http http://localhost:5000/api/v1/courses?where={\"_created\":\"Tue\,%2016%20Aug%202016%2003:36:44%20GMT\"}
+    //按照时间区间查找
+    http http://localhost:5000/api/v1/courses?where={"_created":{"$gte":"Tue, 16 Aug 2016 03:36:44 GMT"}}
+    
+    http http://localhost:5000/api/v1/courses?where={\"_created\":{\"\$gte\":\"Tue\,%2016%20Aug%202016%2003:36:44%20GMT\"}}
+[参照](https://github.com/nicolaiarocci/eve/issues/349)
+
 ### Roadmap
 
 - Rate Limit / Secure Registration Endpoint
