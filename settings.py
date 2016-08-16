@@ -7,7 +7,7 @@ MONGO_USERNAME = ''
 MONGO_PASSWORD = ''
 MONGO_DBNAME = 'maindb'
 
-URL_PREFIX = 'api'
+URL_PREFIX = 'fudaoapi'
 API_VERSION = 'v1'
 
 TOKEN_SECRET = 'secret'
@@ -15,7 +15,7 @@ TOKEN_SECRET = 'secret'
 SERVER_NAME = 'localhost:5000'
 
 teachers = {
-    # 'authentication': TokenAuthentication(),
+    'authentication': TokenAuthentication(),
     'datasource': {
         'projection': {'password': 0}  # hides password
     },
@@ -76,24 +76,26 @@ students = {
 }
 
 courses = {
-    # 'authentication': TokenAuthentication(),
+    'authentication': TokenAuthentication(),
     'resource_methods': ['GET', 'POST', 'DELETE'],
     'item_methods': ['GET', 'PUT', 'PATCH', 'DELETE'],
 
     'schema': {
         'teacherID': {
-            'type': 'objectid',
+            'type': 'string',
             'required': True,
             'data_relation': {
                 'resource': 'teachers',
+                'field':'username',
                 'embeddable': True
             },
         },
         'studentID': {
-            'type': 'objectid',
+            'type': 'string',
             'required': True,
             'data_relation': {
                 'resource': 'students',
+                'field':'username',
                 'embeddable': True
             },
         },

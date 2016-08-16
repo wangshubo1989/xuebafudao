@@ -52,24 +52,20 @@ This needs better docs. The gist is you:
 
 3) Launch your app
 4) Register an account
-
-    curl -X POST -H "Content-Type: application/json" -d '{"first_name":"Navin R.","last_name":"Johnson","email":"a@a.net","password":"password","is_email_confirmed":true}' http://localhost:5000/api/v1/accounts
     
-    curl -X POST -H "Content-Type: application/json" -d '{"username":"janreyho","password":"password","nickname":"李老师"}' http://localhost:5000/api/v1/teachers
+    curl -v -X POST -H "Content-Type: application/json" -d '{"username":"janreyho2","password":"password","nickname":"李老师"}' http://localhost:5000/fudaoapi/v1/teachers
 5) Get a token with that account
 
-    curl -X GET -H "Content-Type: application/json" -u "a@a.net:password" http://localhost:5000/api/v1/tokens
-    
-    curl -X GET -H "Content-Type: application/json" -u "janreyho:password" http://localhost:5000/api/v1/tokens
+    curl -v -X GET -H "Content-Type: application/json" -u "janreyho:password" http://localhost:5000/fudaoapi/v1/tokens
 6) Use that token to hit your endpoint
 
-    curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer ..." http://localhost:5000/api/v1/
+    curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer ..." http://localhost:5000/fudaoapi/v1/
 
 ### 添加学生和课程
 
-    curl -H "Content-Type: application/json" -H "Authorization: Bearer ..." -d '{"username": "janreyho", "nickname": "janrey"}' http://127.0.0.1:5000/api/v1/students
+    curl -H "Content-Type: application/json" -H "Authorization: Bearer ..." -d '{"username": "janreyho", "nickname": "janrey"}' http://localhost:5000/fudaoapi/v1/students
 
-    curl -H "Content-Type: application/json" -H "Authorization: Bearer ..." -d '{"teacherID": "57b177d89d7d9b5c12c30d4b", "studentID": "57b1a7359d7d9b6e61abef2c"}' http://localhost:5000/api/v1/courses
+    curl -H "Content-Type: application/json" -H "Authorization: Bearer ..." -d '{"teacherID": "janreyho", "studentID": "hejiayi"}' http://localhost:5000/fudaoapi/v1/courses
 
 ### api调用方法
     按lastname排序
@@ -82,11 +78,11 @@ This needs better docs. The gist is you:
 
     http http://eve-demo.herokuapp.com/people?where={\"_created\":\"Sun\,%2014%20Aug%202016%2012:20:35%20GMT\"}
     //按照时间查询
-    http http://localhost:5000/api/v1/courses?where={\"_created\":\"Tue\,%2016%20Aug%202016%2003:36:44%20GMT\"}
+    http http://localhost:5000/fudaoapi/v1/courses?where={\"_created\":\"Tue\,%2016%20Aug%202016%2003:36:44%20GMT\"}
     //按照时间区间查找
-    http http://localhost:5000/api/v1/courses?where={"_created":{"$gte":"Tue, 16 Aug 2016 03:36:44 GMT"}}
-    
-    http http://localhost:5000/api/v1/courses?where={\"_created\":{\"\$gte\":\"Tue\,%2016%20Aug%202016%2003:36:44%20GMT\"}}
+    http http://localhost:5000/fudaoapi/v1/courses?where={"_created":{"$gte":"Tue, 16 Aug 2016 03:36:44 GMT"}}
+
+    http http://localhost:5000/fudaoapi/v1/courses?where={\"_created\":{\"\$gte\":\"Tue\,%2016%20Aug%202016%2003:36:44%20GMT\"}}
 [参照](https://github.com/nicolaiarocci/eve/issues/349)
 
 ### Roadmap
