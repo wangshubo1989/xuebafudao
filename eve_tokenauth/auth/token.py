@@ -2,7 +2,7 @@ from datetime import datetime
 from eve.auth import TokenAuth
 import jwt
 from flask import current_app as app, request, abort
-
+from ServerAPI import neteaseIMsrv
 
 class TokenAuthentication(TokenAuth):
 
@@ -29,15 +29,22 @@ class TokenAuthentication(TokenAuth):
 
 def parse_token(req):
     token = req.headers.get('Authorization').split()[1]
-    return token, jwt.decode(token, app.config['TOKEN_SECRET'])
+    return token, jwt.decode(token, app.config['TOKEN_SECRET'], algorithm='HS256')
 
 
 def create_jwt_token(user, expiration):
+    # payload = dict(
+    #     iat=datetime.utcnow(),
+    #     exp=expiration,
+    #     user=dict(
+    #         id=str(user['_id']),
+    #         username=str(user.get('username'))))
     payload = dict(
-        iat=datetime.utcnow(),
-        exp=expiration,
-        user=dict(
-            id=str(user['_id']),
-            username=str(user.get('username'))))
-    token = jwt.encode(payload, app.config['TOKEN_SECRET'])
+        id=str(user['_id']))
+    token = jwt.encode(payload, app.config['TOKEN_SECRET'], algorithm='HS256')
+
+    ret = neteaseIMsrv.updateUserId(user['username'], token=token)
+    if ret["code"] != 200:
+        abort(401, "neteaseIM updateUserId is invalid")
+
     return token

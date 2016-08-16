@@ -10,6 +10,9 @@
 
 import urllib2,urllib
 import random,time,hashlib
+import logging
+import logging.config
+import neteaseIM
 
 class ServerAPI():
     '''
@@ -58,6 +61,7 @@ class ServerAPI():
         req = urllib2.Request(url,urllib.urlencode(postdata),headers = headers);
         res_data = urllib2.urlopen(req)
         res = res_data.read()
+        logger.info(url + "  " + res)
         return eval(res);
 
     '''
@@ -713,3 +717,5 @@ class ServerAPI():
         return self.postDataHttps(url,data);
 
 
+logger = logging.getLogger('main.netease')  
+neteaseIMsrv = ServerAPI(neteaseIM.AppKey, neteaseIM.AppSecret)
