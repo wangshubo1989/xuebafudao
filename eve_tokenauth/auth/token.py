@@ -48,10 +48,3 @@ def create_jwt_token(user, expiration):
         abort(401, "neteaseIM updateUserId is invalid")
 
     return token
-
-class StudentTokenAuthentication(TokenAuth):
-
-    def authorized(self, allowed_roles, resource, method):
-
-        token = request.headers.get('Authorization')
-        return False
