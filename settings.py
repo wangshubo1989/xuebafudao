@@ -1,5 +1,6 @@
 from eve_tokenauth.auth.token import TokenAuthentication
 from eve_tokenauth.auth.basic import BasicAuthentication
+from eve_tokenauth.auth.token import StudentTokenAuthentication
 
 MONGO_HOST = 'localhost'
 MONGO_PORT = 27017
@@ -46,7 +47,7 @@ teachers = {
 }
 
 students = {
-    # 'authentication': TokenAuthentication(),
+    'authentication': StudentTokenAuthentication(),
     'datasource': {
         'projection': {'password': 0}  # hides password
     },
