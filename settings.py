@@ -42,6 +42,12 @@ teachers = {
         'nickname': {
             'type': 'string',
         },
+        'realname': {
+            'type': 'string',
+        },
+        'mobilenumber': {
+            'type': 'string',
+        },
     }
 }
 
@@ -72,6 +78,49 @@ students = {
         'nickname': {
             'type': 'string',
         },
+        'realname': {
+            'type': 'string',
+        },
+        'mobilenumber': {
+            'type': 'string',
+        },
+        'email': {
+            'type': 'string',
+        },
+        'qq': {
+            'type': 'string',
+        },
+        'gender': {
+            'type': 'string',
+            'allowed': ['', 'boy', 'girl']
+        },
+        'tendency': {
+            'type': 'string',
+            'allowed': ['', 'boy', 'girl']
+        },
+        'birthdate': {
+            'type': 'string',
+        },
+        'province': {
+            'type': 'string',
+        },
+        'city': {
+            'type': 'string',
+        },
+        'school': {
+            'type': 'string',
+        },
+        'booktype': {
+            'type': 'string',
+            'allowed': ['', 'people-A', 'people-B']
+        },
+        'subjecttype': {
+            'type': 'string',
+            'allowed': ['', 'science', 'liberal']
+        },
+        'NCEEtime': {
+            'type': 'integer',
+        }
     }
 }
 
