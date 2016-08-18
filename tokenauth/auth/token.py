@@ -45,11 +45,13 @@ def getmysql_token(token):
     subjecttype = ""
     booktype = ""
 
+    # 通过token获得学生的uid
     sql = "SELECT uid FROM auth where token = " + " '" + token[6:] + "' "
     cursor.execute(sql)
     for row in cursor.fetchall():
         userid = row[0]
 
+    # 通过uid获得学生信息users
     sql = "SELECT * FROM users where uid = " + str(userid)
     cursor.execute(sql)
     for row in cursor.fetchall():
@@ -80,6 +82,11 @@ def getmysql_token(token):
             booktype = "people-B"
 
         NCEEtime = row[16]
+    # 通过uid获得学生的云信id：accid
+    sql = "SELECT accid FROM imUsers where uid = " + str(userid)
+    cursor.execute(sql)
+    for row in cursor.fetchall():
+        accid = row[0]
 
     post_payload = dict(
         username=username,
@@ -89,6 +96,7 @@ def getmysql_token(token):
         qq=qq,
         gender=gender,
         # birthdate=birthdate,
+        accid=accid,
         province=province,
         city=city,
         school=school,

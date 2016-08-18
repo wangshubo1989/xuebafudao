@@ -81,6 +81,9 @@ students = {
         'realname': {
             'type': 'string',
         },
+        'accid': {
+            'type': 'string',
+        },
         'mobilenumber': {
             'type': 'string',
         },
