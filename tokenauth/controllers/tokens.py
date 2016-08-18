@@ -1,6 +1,6 @@
 from flask import current_app as app, request
 from eve.methods.post import post_internal as eve_post_internal
-from eve_tokenauth.auth.token import create_jwt_token
+from tokenauth.auth.token import create_jwt_token
 from datetime import datetime, timedelta
 
 

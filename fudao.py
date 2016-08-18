@@ -4,7 +4,7 @@ import logging
 import logging.config  
 import os
 from eve.flaskapp import Eve
-from eve_tokenauth.eveapp import EveWithTokenAuth
+from tokenauth.eveapp import EveWithTokenAuth
 
 
 logging.config.fileConfig('config/logging.conf')   

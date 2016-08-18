@@ -1,6 +1,6 @@
 # from eve_tokenauth.domain import DOMAIN
-from eve_tokenauth.controllers import accounts, tokens
-from eve_tokenauth.exceptions import DomainConflictException
+from tokenauth.controllers import accounts, tokens
+from tokenauth.exceptions import DomainConflictException
 
 
 class EveWithTokenAuth():
