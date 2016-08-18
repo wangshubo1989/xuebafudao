@@ -7,6 +7,7 @@ from flask import current_app as app, request, abort
 from ServerAPI import neteaseIMsrv
 import MySQLdb
 from eve.methods.post import post_internal as eve_post_internal
+from eve.methods.patch import patch_internal as eve_patch_internal
 
 class TokenAuthentication(TokenAuth):
 
@@ -97,6 +98,7 @@ def getmysql_token(token):
     )
     print post_payload
     eve_post_internal("students", post_payload)
+    # ret=eve_patch_internal("students", post_payload)
     return username
 
 
