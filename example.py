@@ -7,7 +7,7 @@ from eve.flaskapp import Eve
 from eve_tokenauth.eveapp import EveWithTokenAuth
 
 
-logging.config.fileConfig('logging.conf')   
+logging.config.fileConfig('config/logging.conf')   
 logger = logging.getLogger('main')  
 logger.info('main logger start')  
 

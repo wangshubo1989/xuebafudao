@@ -1,5 +1,5 @@
 1、注册老师账号
-➜  curl -v -X POST -H "Content-Type: application/json" -d '{"username":"janreyho2","password":"password","nickname":"李老师"}' http://localhost:5000/fudaoapi/v1/teachers
+➜  curl -v -X POST -H "Content-Type: application/json" -d '{"username":"janreyho2","password":"password","nickname":"李老师"}' http://192.168.0.2:5000/fudaoapi/v1/teachers
 *   Trying ::1...
 * connect to ::1 port 5000 failed: Connection refused
 *   Trying 127.0.0.1...
@@ -24,7 +24,7 @@
 ➜
 
 2、获取老师token
-➜ curl -v -X GET -H "Content-Type: application/json" -u "janreyho:password" http://localhost:5000/fudaoapi/v1/tokens
+➜ curl -v -X GET -H "Content-Type: application/json" -u "janreyho:password" http://192.168.0.2:5000/fudaoapi/v1/tokens
 *   Trying ::1...
 * connect to ::1 port 5000 failed: Connection refused
 *   Trying 127.0.0.1...
@@ -50,7 +50,7 @@
 ➜
 
 3、创建学生
-➜ curl -v -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw" -d '{"username": "hejiayi", "nickname": "janrey"}' http://localhost:5000/fudaoapi/v1/students
+➜ curl -v -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw" -d '{"username": "hejiayi", "nickname": "janrey"}' http://192.168.0.2:5000/fudaoapi/v1/students
 *   Trying ::1...
 * connect to ::1 port 5000 failed: Connection refused
 *   Trying 127.0.0.1...
@@ -76,7 +76,7 @@
  ➜
 
  4、创建课程
- ➜  Eve-TokenAuth git:(master) ✗ curl -v -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw" -d '{"teacherID": "janreyho", "studentID": "hejiayi"}' http://localhost:5000/fudaoapi/v1/courses
+ ➜  Eve-TokenAuth git:(master) ✗ curl -v -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw" -d '{"teacherID": "janreyho", "studentID": "hejiayi"}' http://192.168.0.2:5000/fudaoapi/v1/courses
  *   Trying ::1...
  * connect to ::1 port 5000 failed: Connection refused
  *   Trying 127.0.0.1...
@@ -102,7 +102,7 @@
  ➜  Eve-TokenAuth git:(master) ✗
 
 5、查询课程
-➜ curl -v -X GET -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw" http://localhost:5000/fudaoapi/v1/courses
+➜ curl -v -X GET -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw" http://192.168.0.2:5000/fudaoapi/v1/courses
  *   Trying ::1...
  * connect to ::1 port 5000 failed: Connection refused
  *   Trying 127.0.0.1...
