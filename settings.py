@@ -5,7 +5,7 @@ MONGO_HOST = 'localhost'
 MONGO_PORT = 27017
 MONGO_USERNAME = ''
 MONGO_PASSWORD = ''
-MONGO_DBNAME = 'maindb'
+MONGO_DBNAME = 'fudaodb'
 
 URL_PREFIX = 'fudaoapi'
 API_VERSION = 'v1'
