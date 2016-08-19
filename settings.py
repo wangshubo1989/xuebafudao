@@ -186,6 +186,9 @@ courses = {
             'type': 'datetime',},
         'duration': {
             'type': 'integer',},
+        'slides': {
+            'type': 'list',
+            'schema': {'type': 'string'}},
         'status': {
             'type': 'string', 
             'allowed': ['created', 'qqcontact', 'prepared','telcontact', 'preHostVisit', 'started', 'completed', 'sendReport', 'preHostVisit', 'closed']}
