@@ -61,7 +61,7 @@ teachers = {
             'allowed': ['seniorSchool', 'juniorSchool']},
         'teachGrade': {
             'type': 'list',
-            'allowed': ['seniorSync', 'seniroReview', 'grade-7', 'grade-8', 'grade-9']},
+            'allowed': ['seniorSync', 'seniorReview', 'grade-7', 'grade-8', 'grade-9']},
         'certifiedCardID': {
             'type': 'string',},
         'certifiedPhoto': {
