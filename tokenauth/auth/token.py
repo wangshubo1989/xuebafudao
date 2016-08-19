@@ -8,6 +8,8 @@ from neteaseIM.ServerAPI import neteaseIMsrv
 import MySQLdb
 from eve.methods.post import post_internal as eve_post_internal
 from eve.methods.patch import patch_internal as eve_patch_internal
+from eve.methods.put import put_internal as eve_put_internal
+import uuid
 
 class TokenAuthentication(TokenAuth):
 
@@ -27,10 +29,10 @@ class TokenAuthentication(TokenAuth):
     def authorized(self, allowed_roles, resource, method):
 
         token = request.headers.get('Authorization')
-
-        username = getmysql_token(token)
-        if username:
-            return username
+        if token and (38 == len(token) or 42 == len(token)):
+            username = getmysql_token(token)
+            if username:
+                return username
 
         return token and self.check_auth(token, allowed_roles, resource,
                                         method)
@@ -126,8 +128,21 @@ def create_jwt_token(user, expiration):
         id=str(user['_id']))
     token = jwt.encode(payload, app.config['TOKEN_SECRET'], algorithm='HS256')
 
-    ret = neteaseIMsrv.updateUserId(user['username'], token=token)
-    if ret["code"] != 200:
-        abort(401, "neteaseIM updateUserId is invalid")
+    create_neteaseIM_token(user, token)
 
     return token
+
+def create_neteaseIM_token(user,token):
+
+    accid = uuid.uuid3(uuid.NAMESPACE_DNS, str(user['_id']))
+    accid = str(accid)
+    accid= accid.replace('-', '')
+
+    ret1 = neteaseIMsrv.createUserId(accid, token=token)
+    if ret1["code"] != 200:
+        ret2 = neteaseIMsrv.updateUserId(accid, token=token)
+        if ret2["code"] != 200:
+            abort(401, "neteaseIM createUserId error: "+ ret1["desc"]+ " updateUserId error: " +ret2["desc"])
+    patch_payload = dict( accid=accid,)
+    lookup = dict(_id=str(user['_id']),)
+    eve_patch_internal('teachers', patch_payload, skip_validation=True, **lookup)
