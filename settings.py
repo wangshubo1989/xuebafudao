@@ -1,6 +1,9 @@
 from tokenauth.auth.token import TokenAuthentication
 from tokenauth.auth.basic import BasicAuthentication
 
+# DATE_FORMAT = '%a, %d %b %Y %H:%M:%S GMT'
+DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
+
 MONGO_HOST = 'localhost'
 MONGO_PORT = 27017
 MONGO_USERNAME = ''
