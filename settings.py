@@ -79,7 +79,8 @@ teachers = {
                 'school': {
                 'type': 'string'},
                 'level': {
-                'type': 'string'},
+                'type': 'string',
+                'allowed': ['college', 'bachelor', 'master', 'doctor', 'other']},
                 'certificate': {
                 'type': 'string'}
             }
