@@ -51,6 +51,65 @@ teachers = {
         'mobilenumber': {
             'type': 'string',
         },
+        'avatar': {
+            'type': 'string',
+        },
+        'gender': {
+            'type': 'string',
+            'allowed': ['man', 'woman']
+        },
+        'province': {
+            'type': 'string',
+        },
+        'city': {
+            'type': 'string',
+        },
+        'description': {
+            'type': 'string',
+        },
+        'teachSection': {
+            'type': 'list',
+            'allowed': ['seniorSchool', 'juniorSchool']
+        },
+        'teachGrade': {
+            'type': 'list',
+            'allowed': ['seniorSync', 'seniroReview', 'grade-7', 'grade-8', 'grade-9']
+        },
+        'certifiedCardID': {
+            'type': 'string',
+        },
+        'certifiedPhoto': {
+            'type': 'string',
+        },
+        'educated': {
+            'type': 'dict',
+            'schema': {
+                'begin': {
+                'type': 'string'},
+                'end': {
+                'type': 'string'},
+                'school': {
+                'type': 'string'},
+                'level': {
+                'type': 'string'},
+                'certificate': {
+                'type': 'string'}
+            }
+        },
+        'experiences':{
+            'type': 'list',
+            'schema': {
+                'type': 'dict',
+                'schema': {
+                    'begin': {
+                    'type': 'string'},
+                    'end': {
+                    'type': 'string'},
+                    'description': {
+                    'type': 'string'}
+                }
+            }
+        }
     }
 }
 
