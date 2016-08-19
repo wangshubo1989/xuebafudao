@@ -1,0 +1,14 @@
+1、注册老师
+curl -v -X POST -H "Content-Type: application/json" -d '{"username":"lihuan","password":"password","nickname":"李老师"}' http://localhost:5000/fudaoapi/v1/teachers
+
+2、获得老师token
+curl -v -X GET -H "Content-Type: application/json" -u "lihuan:password" http://localhost:5000/fudaoapi/v1/tokens
+
+3、更新老师信息
+curl -v -H "Content-Type: application/json" -H "If-Match: 2a310082af6bc10d0059ce5f9ae23a2fc16148ba" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjZlMmE3OWQ3ZDliZDJiZTNkODU3OCJ9.-8_48a0fr_a_KaHyQIcQKw0H8-aTMEXdyIj5gLDF7Ts" -X PATCH -i http://localhost:5000/fudaoapi/v1/teachers/57b6e2a79d7d9bd2be3d8578 -d '{"nickname":"李老师","realname":"李欢","mobilenumber":"","avatar":"","gender":"man","province":"北京","city":"北京","description":"毕业于清华大学。初中多学科竞赛获奖，高中获 全国中学生物理竞赛一等奖。曾多次参与希望杯等考试供题。与教授数学方法相比，更注重培养扎实的数学基础，在上课中帮孩子建立良好的学习习惯。\n  方法是招式，基础是内功，习惯是保证。习惯良好，内功深厚，融会贯通各种方法，好成绩不求自得。","teachSection":["seniorSchool","juniorSchool"],"teachGrade":["seniorSync","seniorReview","grade-7","grade-8","grade-9"],"certifiedCardID":"500233198912243000","certifiedPhoto":"","educated":{"begin":"2008","end":"2012","school":"清华大学","level":"bachelor","certificate":""},"experiences":[{"begin":"2009.6","end":"2012.6","description":"从事数学、物理等学科家教及一对一辅导；"},{"begin":"2014.5","end":"2016.2","description":"在北京巨人学校从事奥数、初高中数学教研教学，多次参与竞赛辅导和命题；"}]}'
+
+4、学生获得课程信息
+ curl -v -X GET -H "Content-Type: application/json" -H "Authorization: Token 20a7c08ddffa4ee7abbce2127a0c76c0" http://localhost:5000/fudaoapi/v1/courses/
+
+5、学生预约课程
+ curl -v -H "Content-Type: application/json" -H "Authorization: Token 20a7c08ddffa4ee7abbce2127a0c76c0" -d '{"teacherID":"lihuan","studentID":"18513582097","startTime":"2016-09-01 10:00:00","duration":40,"status":"created","slides":["http://www.xuebaclass.com/img/header.png","http://www.xuebaclass.com/img/body.png"]}' http://localhost:5000/fudaoapi/v1/courses

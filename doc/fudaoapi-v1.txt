@@ -1,5 +1,5 @@
 1、注册老师账号
-➜  curl -v -X POST -H "Content-Type: application/json" -d '{"username":"janreyho2","password":"password","nickname":"李老师"}' http://192.168.0.2:5000/fudaoapi/v1/teachers
+➜  curl -v -X POST -H "Content-Type: application/json" -d '{"username":"janreyho2","password":"password","nickname":"李老师"}' http://localhost:5000/fudaoapi/v1/teachers
 *   Trying ::1...
 * connect to ::1 port 5000 failed: Connection refused
 *   Trying 127.0.0.1...
@@ -24,7 +24,7 @@
 ➜
 
 2、获取老师token
-➜ curl -v -X GET -H "Content-Type: application/json" -u "janreyho:password" http://192.168.0.2:5000/fudaoapi/v1/tokens
+➜ curl -v -X GET -H "Content-Type: application/json" -u "janreyho:password" http://localhost:5000/fudaoapi/v1/tokens
 *   Trying ::1...
 * connect to ::1 port 5000 failed: Connection refused
 *   Trying 127.0.0.1...
@@ -50,7 +50,7 @@
 ➜
 
 3、创建学生
-➜ curl -v -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw" -d '{"username": "hejiayi", "nickname": "janrey"}' http://192.168.0.2:5000/fudaoapi/v1/students
+➜ curl -v -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw" -d '{"username": "hejiayi", "nickname": "janrey"}' http://localhost:5000/fudaoapi/v1/students
 *   Trying ::1...
 * connect to ::1 port 5000 failed: Connection refused
 *   Trying 127.0.0.1...
@@ -76,7 +76,7 @@
  ➜
 
  4、创建课程
- ➜  Eve-TokenAuth git:(master) ✗ curl -v -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw" -d '{"teacherID": "janreyho", "studentID": "hejiayi"}' http://192.168.0.2:5000/fudaoapi/v1/courses
+ ➜  Eve-TokenAuth git:(master) ✗ curl -v -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw" -d '{"teacherID": "janreyho", "studentID": "hejiayi"}' http://localhost:5000/fudaoapi/v1/courses
  *   Trying ::1...
  * connect to ::1 port 5000 failed: Connection refused
  *   Trying 127.0.0.1...
@@ -102,7 +102,7 @@
  ➜  Eve-TokenAuth git:(master) ✗
 
 5、查询课程
-➜ curl -v -X GET -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw" http://192.168.0.2:5000/fudaoapi/v1/courses
+➜ curl -v -X GET -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw" http://localhost:5000/fudaoapi/v1/courses
  *   Trying ::1...
  * connect to ::1 port 5000 failed: Connection refused
  *   Trying 127.0.0.1...
@@ -126,3 +126,83 @@
  * Closing connection 0
  {"_items": [{"_updated": "Tue, 16 Aug 2016 13:03:40 GMT", "studentID": "hejiayi", "_links": {"self": {"href": "courses/57b30f2c9d7d9b2db0932be8", "title": "Course"}}, "teacherID": "57b300f19d7d9b279023e768", "_created": "Tue, 16 Aug 2016 13:03:40 GMT", "_id": "57b30f2c9d7d9b2db0932be8", "_etag": "73326362ded83ec50e3ec157a2c03c2f60a8564a"}, {"_updated": "Tue, 16 Aug 2016 13:06:17 GMT", "studentID": "hejiayi", "_links": {"self": {"href": "courses/57b30fc99d7d9b30f4f14ed1", "title": "Course"}}, "teacherID": "janreyho", "_created": "Tue, 16 Aug 2016 13:06:17 GMT", "_id": "57b30fc99d7d9b30f4f14ed1", "_etag": "059ed787d76dee283fef1fcd614cd151a4bf67c9"}], "_links": {"self": {"href": "courses", "title": "courses"}, "parent": {"href": "/", "title": "home"}}, "_meta": {"max_results": 25, "total": 2, "page": 1}}%
 ➜  examples git:(master) ✗
+
+6、更新老师信息，（更新学生、课程信息方法类似）
+curl -v -H "Content-Type: application/json" -H "If-Match: AAA" -H "Authorization: Bearer BBB" -X PATCH -i http://localhost:5000/fudaoapi/v1/teachers/CCC -d 'DDD'
+AAA:_etag
+BBB:token
+CCC:_id
+DDD:具体信息
+
+➜  curl -v -H "Content-Type: application/json" -H "If-Match: a7282af17099ecd2ccff702d48464a914d563cb2" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw" -X PATCH -i http://localhost:5000/fudaoapi/v1/teachers/57b30ad69d7d9b2c692af02c -d '{"nickname": "王老师"}'
+*   Trying ::1...
+* connect to ::1 port 5000 failed: Connection refused
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 5000 (#0)
+> PATCH /fudaoapi/v1/teachers/57b30ad69d7d9b2c692af02c HTTP/1.1
+> Host: localhost:5000
+> User-Agent: curl/7.43.0
+> Accept: */*
+> Content-Type: application/json
+> If-Match: a7282af17099ecd2ccff702d48464a914d563cb2
+> Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjMwMGYxOWQ3ZDliMjc5MDIzZTc2OCJ9.9LCoQlJLMK01Ypp4s3b-zzkDLzfTniAOjxq3n9bb_xw
+> Content-Length: 25
+>
+* upload completely sent off: 25 out of 25 bytes
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+HTTP/1.0 200 OK
+< Content-Type: application/json
+Content-Type: application/json
+< Content-Length: 282
+Content-Length: 282
+< ETag: edff39c16a473769bcbae3c1d92cd38bf7b2cd3c
+ETag: edff39c16a473769bcbae3c1d92cd38bf7b2cd3c
+< Server: Eve/0.6.1 Werkzeug/0.10.4 Python/2.7.11
+Server: Eve/0.6.1 Werkzeug/0.10.4 Python/2.7.11
+< Date: Fri, 19 Aug 2016 03:09:01 GMT
+Date: Fri, 19 Aug 2016 03:09:01 GMT
+
+<
+* Closing connection 0
+{"_updated": "Fri, 19 Aug 2016 03:09:01 GMT", "_links": {"self": {"href": "teachers/57b30ad69d7d9b2c692af02c", "title": "Teacher"}}, "_created": "Tue, 16 Aug 2016 12:45:10 GMT", "_status": "OK", "_id": "57b30ad69d7d9b2c692af02c", "_etag": "edff39c16a473769bcbae3c1d92cd38bf7b2cd3c"}%
+➜
+
+7、更新全部老师全部信息
+➜  curl -v -H "Content-Type: application/json" -H "If-Match: 15f21c2ee6c617149096f120193ac07560dcc2da" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjZjMjZjOWQ3ZDliY2ExNWIyMDBmYyJ9.g740Iwc3U1E1HEgYWnfCPMXA5996GxoZVSqz7ETNAb4" -X PATCH -i http://localhost:5000/fudaoapi/v1/teachers/57b6c26c9d7d9bca15b200fc -d '{"nickname":"李老师","realname":"李欢","mobilenumber":"","avatar":"","gender":"man","province":"北京","city":"北京","description":"毕业于清华大学。初中多学科竞赛获奖，高中获全国中 学生物理竞赛一等奖。曾多次参与希望杯等考试供题。与教授数学方法相比，更注重培养扎实的数学基础，在上课中帮孩子建立良好的学习习惯。\n  方法是招式，基础是内功，习惯是保证。习惯良好，内功深厚，融会贯通各种方法，好成绩不求自得。","teachSection":["seniorSchool","juniorSchool"],"teachGrade":["seniorSync","seniroReview","grade-7","grade-8","grade-9"],"certifiedCardID":"500233198912243000","certifiedPhoto":"","educated":{"begin":"2008","end":"2012","school":"清华大学","level":"本科","certificate":""},"experiences":[{"begin":"2009.6","end":"2012.6","description":"从事数学、物理等学科家教及一对一辅导；"},{"begin":"2014.5","end":"2016.2","description":"在北京巨人学校从事奥数、初高中数学教研教学，多次参与竞赛辅导和命题；"}]}'
+*   Trying ::1...
+* connect to ::1 port 5000 failed: Connection refused
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 5000 (#0)
+> PATCH /fudaoapi/v1/teachers/57b6c26c9d7d9bca15b200fc HTTP/1.1
+> Host: localhost:5000
+> User-Agent: curl/7.43.0
+> Accept: */*
+> Content-Type: application/json
+> If-Match: 15f21c2ee6c617149096f120193ac07560dcc2da
+> Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3YjZjMjZjOWQ3ZDliY2ExNWIyMDBmYyJ9.g740Iwc3U1E1HEgYWnfCPMXA5996GxoZVSqz7ETNAb4
+> Content-Length: 1100
+> Expect: 100-continue
+>
+< HTTP/1.1 100 Continue
+HTTP/1.1 100 Continue
+
+* We are completely uploaded and fine
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+HTTP/1.0 200 OK
+< Content-Type: application/json
+Content-Type: application/json
+< Content-Length: 282
+Content-Length: 282
+< ETag: e57e58aba8d4ae2e9e2eeb3f449b130328000056
+ETag: e57e58aba8d4ae2e9e2eeb3f449b130328000056
+< Server: Eve/0.6.4 Werkzeug/0.10.4 Python/2.7.11
+Server: Eve/0.6.4 Werkzeug/0.10.4 Python/2.7.11
+< Date: Fri, 19 Aug 2016 08:45:56 GMT
+Date: Fri, 19 Aug 2016 08:45:56 GMT
+
+<
+* Closing connection 0
+{"_updated": "Fri, 19 Aug 2016 08:45:56 GMT", "_links": {"self": {"href": "teachers/57b6c26c9d7d9bca15b200fc", "title": "Teacher"}}, "_created": "Fri, 19 Aug 2016 08:25:16 GMT", "_status": "OK", "_id": "57b6c26c9d7d9bca15b200fc", "_etag": "e57e58aba8d4ae2e9e2eeb3f449b130328000056"}%
+➜ 
