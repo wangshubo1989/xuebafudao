@@ -33,54 +33,39 @@ teachers = {
         'username': {
             'type': 'string',
             'required': True,
-            'unique': True,
-        },
+            'unique': True,},
         'password': {
             'type': 'string',
-            'required': True,
-        },
+            'required': True,},
         'nickname': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'realname': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'accid': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'mobilenumber': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'avatar': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'gender': {
             'type': 'string',
-            'allowed': ['man', 'woman']
-        },
+            'allowed': ['man', 'woman']},
         'province': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'city': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'description': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'teachSection': {
             'type': 'list',
-            'allowed': ['seniorSchool', 'juniorSchool']
-        },
+            'allowed': ['seniorSchool', 'juniorSchool']},
         'teachGrade': {
             'type': 'list',
-            'allowed': ['seniorSync', 'seniroReview', 'grade-7', 'grade-8', 'grade-9']
-        },
+            'allowed': ['seniorSync', 'seniroReview', 'grade-7', 'grade-8', 'grade-9']},
         'certifiedCardID': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'certifiedPhoto': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'educated': {
             'type': 'dict',
             'schema': {
@@ -132,60 +117,43 @@ students = {
         'username': {
             'type': 'string',
             'required': True,
-            'unique': True,
-        },
+            'unique': True,},
         'password': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'nickname': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'realname': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'accid': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'mobilenumber': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'email': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'qq': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'gender': {
             'type': 'string',
-            'allowed': ['', 'boy', 'girl']
-        },
+            'allowed': ['', 'boy', 'girl']},
         'tendency': {
             'type': 'string',
-            'allowed': ['', 'boy', 'girl']
-        },
+            'allowed': ['', 'boy', 'girl']},
         'birthdate': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'province': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'city': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'school': {
-            'type': 'string',
-        },
+            'type': 'string',},
         'booktype': {
             'type': 'string',
-            'allowed': ['', 'people-A', 'people-B']
-        },
+            'allowed': ['', 'people-A', 'people-B']},
         'subjecttype': {
             'type': 'string',
-            'allowed': ['', 'science', 'liberal']
-        },
+            'allowed': ['', 'science', 'liberal']},
         'NCEEtime': {
-            'type': 'integer',
-        }
+            'type': 'integer',}
     }
 }
 
@@ -201,8 +169,7 @@ courses = {
             'data_relation': {
                 'resource': 'teachers',
                 'field':'username',
-                'embeddable': True
-            },
+                'embeddable': True},
         },
         'studentID': {
             'type': 'string',
@@ -210,19 +177,15 @@ courses = {
             'data_relation': {
                 'resource': 'students',
                 'field':'username',
-                'embeddable': True
-            },
+                'embeddable': True},
         },
         'startTime': {
-            'type': 'datetime',
-        },
+            'type': 'datetime',},
         'duration': {
-            'type': 'integer',
-        },
+            'type': 'integer',},
         'status': {
             'type': 'string', 
-            'allowed': ['created', 'qqcontact', 'prepared','telcontact', 'preHostVisit', 'started', 'completed', 'sendReport', 'preHostVisit', 'closed']
-        }
+            'allowed': ['created', 'qqcontact', 'prepared','telcontact', 'preHostVisit', 'started', 'completed', 'sendReport', 'preHostVisit', 'closed']}
     }
 }
 
@@ -236,17 +199,14 @@ tokens = {
     'item_methods': ['GET'],
     'schema': {
         'expiration': {
-            'type': 'datetime'
-        },
+            'type': 'datetime'},
         'token': {
-            'type': 'string'
-        },
+            'type': 'string'},
         'account': {
             'type': 'objectid',
             'data_relation': {
                 'resource': 'teachers',
-                'field': '_id'
-            }
+                'field': '_id'}
         }
     }
 }
