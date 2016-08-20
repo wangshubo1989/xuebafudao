@@ -1,0 +1,13 @@
+/* 身体部分 */
+.body{padding-top: 2.4375rem;}
+.teacher-item{padding: .5rem .5rem .4rem;background: #fff;border-top:1px solid #d0d0d1;}
+.teacher-item .teacher-con{color:#000;width:78.5%;}
+	.title{font-size: .95rem;margin-top:.1rem}
+	.type{display:inline-block;border:1px solid #fe9b00;border-radius:5px;color: #fe9b00;width: 1rem;height:1rem;line-height: 1.1rem;font-size:.8rem;text-align: center;margin-right: .5rem;}
+	.info{margin-top: .4rem;}
+	.info img{width:2.25rem;height:2.25rem;border:1px solid #b6b6b6;border-radius:50%;margin-right:.3125rem;}
+	.content{margin-top:.1rem;}
+	.info span{display:block;font-size:.75rem;color:#868687;}
+	.info span em{margin-right:.3rem;}
+.teacher-item .inclass{font-size:.8rem;color:#fff;background:#ff9a00;height:1.4rem;line-height:1.5rem;padding:0 .4375rem;border-radius:5px;margin-top:1.5rem;}
+.teacher-item:last-child{border-bottom: 1px solid #d0d0d1;}

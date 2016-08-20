@@ -1,0 +1,6 @@
+/* 约课成功 */
+.body{width: 90%;padding-top: 2.25rem;}
+p{color: #32363a;font-size: .85rem}
+.remake{margin: 1.25rem 0 3.0625rem;}
+.remake span{color:#f80909;}
+footer a{display: block;width: 70%;padding: .8rem 0;margin: 0 auto;text-align: center;color: #fff;background: #ff9a00;border-radius: 5px;position: absolute;bottom: 2.5rem;left: 0;right: 0;}

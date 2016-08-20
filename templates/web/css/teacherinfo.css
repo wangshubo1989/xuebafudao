@@ -1,0 +1,17 @@
+.body{padding-top: 1.375rem;}
+.avatar{display: block;margin: 0 auto .6875rem;width: 4.8125rem;}
+.tea{text-align: center;}
+.rating{margin: .8125rem 0 1.375rem;}
+.rating span{display: inline-block;padding: .125rem .375rem;border: 1px solid #8e8e8e;border-radius: 10px;font-size: .9rem;}
+	.graduate{margin-right: .3125rem;}
+.introduce{padding:.625rem 0 .5rem}
+.tea1,.introduce{border-top: 1px solid #d0d0d0;background: #fff;}
+.tea1{padding: .8125rem .9375rem;}
+	.teainfo{color: #7b7b7c;font-size: .85rem;margin-top: .3rem;}
+	.cltype{margin-left: .5rem;}
+	.biye{margin: 0 .4375rem 0 1.5625rem;}
+	.item-work,.personal-introduction{line-height: 1.4rem;}
+	.item-work .workstart:before{display: inline-block;content: '';width: 1rem;border: 1px solid #fe9b00;vertical-align: middle;margin: -.2rem .35rem 0 0;}
+	.info1{margin-left:1.35rem}
+	table{border:1px solid #8c8c8c;margin-top:.5rem;font-size:.8rem}
+	th,td{width: 2.875rem;padding:.5rem 0;text-align: center;border: 1px solid #8c8c8c;}

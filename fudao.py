@@ -6,6 +6,8 @@ import os
 from eve.flaskapp import Eve
 from tokenauth.eveapp import EveWithTokenAuth
 import flask_admin as admin
+from flask import Blueprint, render_template, jsonify
+
 
 # Create custom admin view
 class MyAdminView(admin.BaseView):
@@ -38,9 +40,10 @@ if __name__ == '__main__':
 	@apiapp.route('/')
 	def index():
 	    return '<a href="/admin/">Click me to get to Admin!</a>'
-	@apiapp.route('web/')
-    def index():
-        return self.render('myadmin.html')
+
+	@apiapp.route('/web')
+	def webindex():
+	    return render_template('web/mycourse.html')
 
 	# Create admin interface
 	admin = admin.Admin(name="Example: Simple Views", template_mode='bootstrap3')

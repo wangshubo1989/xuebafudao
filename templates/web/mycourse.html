@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"><!--禁止缩放-->
+	<meta name="format-detection" content="telephone=no,email=no,adress=no"><!--不识别为电话号码，邮箱，地址-->
+	<meta name="apple-mobile-web-app-capable" content="yes"><!--删除默认的苹果工具栏、菜单栏(全屏显示）-->
+	<meta name="apple-touch-fullscreen" content="yes"><!--全屏显示-->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"><!--设置app应用下状态条的颜色，默认值default (白色)  black（黑色），black-translucent（灰色半透明）如果设置为这个值会占据页面的px位置浮在页面上方20px高度  iphone4是40px-->
+	<meta name="renderer" content="webkit"><!--360模式固定为极速模式-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><!--IE8浏览器的显示方式:IE=edge以IE最高版本显示，chrome=1 以谷歌浏览器模式渲染(GCF(Google Chrome Frame))-->
+	<meta name="referrer" content="never"><!--告诉浏览器链接来源于哪里(计算网页上链接的访问量)-->
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<meta name="description" content="北京博学慎思教育科技有限公司, 学吧APP,学吧课堂APP,学吧课堂约课" /><!-- 页面描述 -->
+	<meta name="keywords" content="学吧,学吧课堂,学吧教育,K12,个性化教育,博学慎思,高中教育,学吧课堂约课学习"/><!-- 页面关键词 -->
+	<title>我的课程</title>
+	<!-- <link rel="dns-prefetch" href="xxx.com"> --><!--预解析技术,浏览器会在加载页面的时对页面中的域名进行解析缓存,减少用户的等待时间，提高用户的体验-->
+	<link rel="shortcut icon" href="http://www.xuebaclass.com/img/icon.png" type="image/x-icon"><!--在标题栏中显示网页logo-->
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/comment.css">
+	<link rel="stylesheet" href="css/mycourse.css">
+	<script src="http://www.xuebaclass.com/static/assets/jquery.min.js"></script>
+	<script src="js/index.js"></script>
+</head>
+<body>
+	<div class="abuotclass">
+		<header>
+			<img src="img/back.png" alt="返回按钮" class="backclass">
+			<nav>
+				<a href="javascript:;" class="abclass">约课</a>
+				<a href="mycourse.html" class="active">我的课程</a>
+			</nav>
+			<!-- <a href="" class="time fr">日历</a> -->
+		</header>
+		<div class="body">
+			<div class="teacher-item clearfix">
+				<a href="javascript:;" class="teacher-con fl">
+					<p><span class="type">体</span><span class="title"><em>朱新奇</em>老师的1对1数学体验课</span></p>
+					<div class="info clearfix">
+						<img src="http://www.xuebaclass.com/img/icon.png" alt="老师头像" class="fl">
+						<div class="content fl">
+							<span>共<i>1</i>次课</span>
+							<span><em>朱新奇</em><em>8月21日</em><em>周五</em><em>20:00-20:40</em></span>
+						</div>
+					</div>
+				</a>
+				<a href="javascript:;" class="inclass fr">进入教室</a>
+			</div>
+			<div class="teacher-item clearfix">
+				<a href="javascript:;" class="teacher-con fl">
+					<p><span class="type">体</span><span class="title"><em>新奇</em>老师的1对1数学体验课</span></p>
+					<div class="info clearfix">
+						<img src="http://www.xuebaclass.com/img/icon.png" alt="老师头像" class="fl">
+						<div class="content fl">
+							<span>第<i>1</i>次课程/共<i>10</i>次课程</span>
+							<span><em>朱新奇</em><em>8月21日</em><em>周五</em><em>20:00-20:40</em></span>
+						</div>
+					</div>
+				</a>
+				<a href="javascript:;" class="inclass fr">进入教室</a>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function () {
+	         $.ajax({
+	             url: 'jsondata.ashx',
+	             type: 'GET',
+	             dataType: 'json',
+	             timeout: 1000,
+	             cache: false,
+	             beforeSend: LoadFunction, //加载执行方法
+	             error: erryFunction,  //错误执行方法
+	             success: succFunction //成功执行方法
+	         });
+	         // function LoadFunction() {
+	         //     $("#list").html('加载中...');
+	         // }
+	         function erryFunction() {
+	             alert("error");
+	         }
+	         function succFunction(tt) {
+	             $(".teacher-item").empty();
+	             //eval将字符串转成对象数组
+	             //var json = { "id": "10086", "uname": "zhangsan", "email": "zhangsan@qq.com" };
+	             //json = eval(json);
+	             //alert("===json:id=" + json.id + ",uname=" + json.uname + ",email=" + json.email);
+	             var json = eval(tt); //数组
+	             $.each(json, function (index, item) {
+	                 //循环获取数据
+	                 var name = json[index].Name;
+	                 var idnumber = json[index].IdNumber;
+	                 var sex = json[index].Sex;
+	                 $("#list").html($("#list").html() + "<br>" + name + " - " + idnumber + " - " + sex + "<br/>");
+	             });
+	         }
+	     });
+	</script>
+</body>
+</html>
