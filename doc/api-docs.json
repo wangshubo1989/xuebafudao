@@ -1,0 +1,341 @@
+{
+  "info": {
+    "title": "\u5b66\u5427\u8f85\u5bfc API",
+    "description": "\u4e00\u5bf9\u4e00\u8f85\u5bfc\uff0c\u63d0\u4f9b\u5b9e\u65f6\u8bed\u97f3\uff0c\u548c\u6559\u5b66\u767d\u677f\u3002",
+    "termsOfService": "my terms of service",
+    "contact": {
+      "url": "http://192.168.0.2:5000",
+      "name": "hejiayi"
+    },
+    "version": "0.1"
+  },
+  "paths": {
+    "/tokens": {
+      "get": {
+        "summary": "Retrieves one or more tokens",
+        "responses": {
+          "200": {
+            "description": "An array of tokens"
+          }
+        }
+      }
+    },
+    "/tokens/{tokenId}": {
+      "get": {
+        "summary": "Retrieves a Token document",
+        "responses": {
+          "200": {
+            "description": "Token document fetched successfully"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tokenId",
+            "required": true,
+            "description": "ID of the Token",
+            "type": "string",
+            "format": "objectid"
+          }
+        ]
+      }
+    },
+    "/students": {
+      "get": {
+        "summary": "Retrieves one or more students",
+        "responses": {
+          "200": {
+            "description": "An array of students"
+          }
+        }
+      },
+      "post": {
+        "summary": "Stores one or more students",
+        "responses": {
+          "200": {
+            "description": "operation has been successful"
+          }
+        }
+      }
+    },
+    "/students/{studentId}": {
+      "get": {
+        "summary": "Retrieves a Student document",
+        "responses": {
+          "200": {
+            "description": "Student document fetched successfully"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "studentId",
+            "required": true,
+            "description": "ID of the Student",
+            "type": "string",
+            "format": "objectid"
+          }
+        ]
+      },
+      "put": {
+        "summary": "Replaces a Student document",
+        "responses": {
+          "200": {
+            "description": "Student document replaced successfully"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "studentId",
+            "required": true,
+            "description": "ID of the Student",
+            "type": "string",
+            "format": "objectid"
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Updates a Student document",
+        "responses": {
+          "200": {
+            "description": "Student document updated successfully"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "studentId",
+            "required": true,
+            "description": "ID of the Student",
+            "type": "string",
+            "format": "objectid"
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Deletes a Student document",
+        "responses": {
+          "200": {
+            "description": "Student document deleted successfully"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "studentId",
+            "required": true,
+            "description": "ID of the Student",
+            "type": "string",
+            "format": "objectid"
+          }
+        ]
+      }
+    },
+    "/teachers": {
+      "get": {
+        "summary": "Retrieves one or more teachers",
+        "responses": {
+          "200": {
+            "description": "An array of teachers"
+          }
+        }
+      },
+      "post": {
+        "summary": "Stores one or more teachers",
+        "responses": {
+          "200": {
+            "description": "operation has been successful"
+          }
+        }
+      }
+    },
+    "/teachers/{teacherId}": {
+      "get": {
+        "summary": "Retrieves a Teacher document",
+        "responses": {
+          "200": {
+            "description": "Teacher document fetched successfully"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "teacherId",
+            "required": true,
+            "description": "ID of the Teacher",
+            "type": "string",
+            "format": "objectid"
+          }
+        ]
+      },
+      "put": {
+        "summary": "Replaces a Teacher document",
+        "responses": {
+          "200": {
+            "description": "Teacher document replaced successfully"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "teacherId",
+            "required": true,
+            "description": "ID of the Teacher",
+            "type": "string",
+            "format": "objectid"
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Updates a Teacher document",
+        "responses": {
+          "200": {
+            "description": "Teacher document updated successfully"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "teacherId",
+            "required": true,
+            "description": "ID of the Teacher",
+            "type": "string",
+            "format": "objectid"
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Deletes a Teacher document",
+        "responses": {
+          "200": {
+            "description": "Teacher document deleted successfully"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "teacherId",
+            "required": true,
+            "description": "ID of the Teacher",
+            "type": "string",
+            "format": "objectid"
+          }
+        ]
+      }
+    },
+    "/courses": {
+      "get": {
+        "summary": "Retrieves one or more courses",
+        "responses": {
+          "200": {
+            "description": "An array of courses"
+          }
+        }
+      },
+      "post": {
+        "summary": "Stores one or more courses",
+        "responses": {
+          "200": {
+            "description": "operation has been successful"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes all courses",
+        "responses": {
+          "200": {
+            "description": "operation has been successful"
+          }
+        }
+      }
+    },
+    "/courses/{courseId}": {
+      "get": {
+        "summary": "Retrieves a Course document",
+        "responses": {
+          "200": {
+            "description": "Course document fetched successfully"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "courseId",
+            "required": true,
+            "description": "ID of the Course",
+            "type": "string",
+            "format": "objectid"
+          }
+        ]
+      },
+      "put": {
+        "summary": "Replaces a Course document",
+        "responses": {
+          "200": {
+            "description": "Course document replaced successfully"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "courseId",
+            "required": true,
+            "description": "ID of the Course",
+            "type": "string",
+            "format": "objectid"
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Updates a Course document",
+        "responses": {
+          "200": {
+            "description": "Course document updated successfully"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "courseId",
+            "required": true,
+            "description": "ID of the Course",
+            "type": "string",
+            "format": "objectid"
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Deletes a Course document",
+        "responses": {
+          "200": {
+            "description": "Course document deleted successfully"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "courseId",
+            "required": true,
+            "description": "ID of the Course",
+            "type": "string",
+            "format": "objectid"
+          }
+        ]
+      }
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "produces": [
+    "application/xml",
+    "application/json"
+  ],
+  "basePath": "/fudaoapi/v1",
+  "host": "192.168.0.2:5000",
+  "swagger": "2.0",
+  "consumes": [
+    "application/json"
+  ]
+}
