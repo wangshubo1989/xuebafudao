@@ -4,14 +4,15 @@ from tokenauth.auth.token import create_jwt_token
 from datetime import datetime, timedelta
 
 
-def insert_token(account, expiration, token):
-    post_payload = dict(
-        account=account['_id'],
-        expiration=expiration,
-        token=token.decode('utf8')
-    )
-    post_response = eve_post_internal("tokens", post_payload)
-    return post_response
+# def insert_token(account, expiration, token):
+#     post_payload = dict(
+#         account=account['_id'],
+#         expiration=expiration,
+#         token=token.decode('utf8'),
+#         accidtoken=token[token.rindex('.', 0, len(token)):]
+#     )
+#     post_response = eve_post_internal("tokens", post_payload)
+#     return post_response
 
 
 def generate_login_token_for_user(response):
@@ -30,22 +31,31 @@ def generate_login_token_for_user(response):
     expiration = datetime.utcnow() + timedelta(days=7)
     token = create_jwt_token(account, expiration)
 
-    # insert the token into the db
-    insert_token(account, expiration, token)
+    post_payload = dict(
+        account=account['_id'],
+        expiration=expiration,
+        token=token.decode('utf8'),
+        accidtoken=token[token.rindex('.', 0, len(token)):]
+    )
+    post_response = eve_post_internal("tokens", post_payload)
 
-    # get tokens from database matching this user
-    lookup = {"account": account['_id']}
-    account_tokens = tokens.find(lookup)
+    # # insert the token into the db
+    # insert_token(account, expiration, token)
 
-    # add them to the response, without most keys.
-    items = []
-    for record in account_tokens:
+    # # get tokens from database matching this user
+    # lookup = {"account": account['_id']}
+    # account_tokens = tokens.find(lookup)
 
-        record.pop('account')
+    # # add them to the response, without most keys.
+    # items = []
+    # for record in account_tokens:
 
-        items.append(record)
+    #     record.pop('account')
 
-    response['_items'] = items
+    #     items.append(record)
+    #     break;
+
+    response['_items'] = post_payload
 
     return response
 

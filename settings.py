@@ -209,6 +209,8 @@ tokens = {
             'type': 'datetime'},
         'token': {
             'type': 'string'},
+        'accidtoken': {
+            'type': 'string'},
         'account': {
             'type': 'objectid',
             'data_relation': {

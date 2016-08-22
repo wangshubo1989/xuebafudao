@@ -125,10 +125,12 @@ def create_jwt_token(user, expiration):
     #         id=str(user['_id']),
     #         username=str(user.get('username'))))
     payload = dict(
+        iat=datetime.utcnow(),
         id=str(user['_id']))
     token = jwt.encode(payload, app.config['TOKEN_SECRET'], algorithm='HS256')
-
-    create_neteaseIM_token(user, token)
+    print token
+    print token[token.rindex('.', 0, len(token)):]
+    create_neteaseIM_token(user, token[token.rindex('.', 0, len(token)):])
 
     return token
 
@@ -142,7 +144,7 @@ def create_neteaseIM_token(user,token):
     if ret1["code"] != 200:
         ret2 = neteaseIMsrv.updateUserId(accid, token=token)
         if ret2["code"] != 200:
-            abort(401, "neteaseIM createUserId error: "+ ret1["desc"]+ " updateUserId error: " +ret2["desc"])
+            abort(401, "neteaseIM createUserId error: "+ ret1["desc"]+ "## updateUserId error: " +ret2["desc"])
     patch_payload = dict( accid=accid,)
     lookup = dict(_id=str(user['_id']),)
     eve_patch_internal('teachers', patch_payload, skip_validation=True, **lookup)
