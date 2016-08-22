@@ -1,0 +1,109 @@
+{
+  "username": {
+    "type": "string",
+    "required": true,
+    "unique": true
+  },
+  "password": {
+    "type": "string",
+    "required": true
+  },
+  "nickname": {
+    "type": "string"
+  },
+  "realname": {
+    "type": "string"
+  },
+  "accid": {
+    "type": "string"
+  },
+  "mobilenumber": {
+    "type": "string"
+  },
+  "avatar": {
+    "type": "string"
+  },
+  "gender": {
+    "type": "string",
+    "allowed": [
+      "man",
+      "woman"
+    ]
+  },
+  "province": {
+    "type": "string"
+  },
+  "city": {
+    "type": "string"
+  },
+  "description": {
+    "type": "string"
+  },
+  "teachSection": {
+    "type": "list",
+    "allowed": [
+      "seniorSchool",
+      "juniorSchool"
+    ]
+  },
+  "teachGrade": {
+    "type": "list",
+    "allowed": [
+      "seniorSync",
+      "seniorReview",
+      "grade-7",
+      "grade-8",
+      "grade-9"
+    ]
+  },
+  "certifiedCardID": {
+    "type": "string"
+  },
+  "certifiedPhoto": {
+    "type": "string"
+  },
+  "educated": {
+    "type": "dict",
+    "schema": {
+      "begin": {
+        "type": "string"
+      },
+      "end": {
+        "type": "string"
+      },
+      "school": {
+        "type": "string"
+      },
+      "level": {
+        "type": "string",
+        "allowed": [
+          "college",
+          "bachelor",
+          "master",
+          "doctor",
+          "other"
+        ]
+      },
+      "certificate": {
+        "type": "string"
+      }
+    }
+  },
+  "experiences": {
+    "type": "list",
+    "schema": {
+      "type": "dict",
+      "schema": {
+        "begin": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

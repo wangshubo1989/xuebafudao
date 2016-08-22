@@ -1,0 +1,45 @@
+{
+    "teacherID": {
+        "type": "string",
+        "required": 1,
+        "data_relation": {
+            "resource": "teachers",
+            "field": "username"
+        }
+    },
+    "studentID": {
+        "type": "string",
+        "required": 1,
+        "data_relation": {
+            "resource": "students",
+            "field": "username"
+        }
+    },
+    "startTime": {
+        "type": "datetime"
+    },
+    "duration": {
+        "type": "integer"
+    },
+    "slides": {
+        "type": "list",
+        "schema": {
+            "type": "string"
+        }
+    },
+    "status": {
+        "type": "string",
+        "allowed": [
+            "created",
+            "qqcontact",
+            "prepared",
+            "telcontact",
+            "preHostVisit",
+            "started",
+            "completed",
+            "sendReport",
+            "preHostVisit",
+            "closed"
+        ]
+    }
+}

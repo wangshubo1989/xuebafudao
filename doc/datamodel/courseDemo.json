@@ -1,0 +1,11 @@
+{
+  "teacherID": "lihuan",
+  "studentID": "18513582097",
+  "startTime": "2016-09-01 10:00:00",
+  "duration": 40,
+  "status": "created",
+  "slides": [
+    "http://www.xuebaclass.com/img/header.png",
+    "http://www.xuebaclass.com/img/body.png"
+  ]
+}
