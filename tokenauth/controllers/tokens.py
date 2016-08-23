@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+# coding=utf-8
 from flask import current_app as app, request
 from eve.methods.post import post_internal as eve_post_internal
 from tokenauth.auth.token import create_jwt_token

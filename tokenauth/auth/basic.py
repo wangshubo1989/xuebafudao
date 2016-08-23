@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+# coding=utf-8
 import bcrypt
 from flask import current_app as app
 from eve.auth import BasicAuth

@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+# coding=utf-8
 # from eve_tokenauth.domain import DOMAIN
 from tokenauth.controllers import accounts, tokens
 from tokenauth.exceptions import DomainConflictException

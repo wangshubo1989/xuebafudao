@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+# coding=utf-8
 import bcrypt
 from neteaseIM.ServerAPI import neteaseIMsrv
 from flask import current_app as app, request, abort

@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# coding=utf-8
+
 from tokenauth.auth.token import TokenAuthentication
 from tokenauth.auth.basic import BasicAuthentication
 # import os
