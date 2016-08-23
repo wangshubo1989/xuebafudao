@@ -38,7 +38,7 @@ class TokenAuthentication(TokenAuth):
                                         method)
 
 def getmysql_token(token):
-    mysqldb = MySQLdb.connect("192.168.0.2","xueba","Xue-83177","xuebaedu")
+    mysqldb = MySQLdb.connect("192.168.0.2","xueba","Xue-83177","xuebaedu",charset='utf8')
     cursor = mysqldb.cursor()
 
     userid = 0
@@ -47,6 +47,14 @@ def getmysql_token(token):
     subjecttype = ""
     booktype = ""
     accid = ""
+    nickname = ""
+    mobilenumber = ""
+    email = ""
+    qq = ""
+    province = ""
+    city = ""
+    school = ""
+    NCEEtime = ""
 
     # 通过token获得学生的uid
     sql = "SELECT uid FROM auth where token = " + " '" + token[6:] + "' "
@@ -108,8 +116,15 @@ def getmysql_token(token):
         NCEEtime=NCEEtime,
     )
     print post_payload
+
+    students = app.data.driver.db['students']
+    student = students.find_one({'username': username})
+    if student:
+        lookup = dict(_id=str(student['_id']),)
+        eve_patch_internal("students", post_payload, skip_validation=True, **lookup)
+        return username
+
     eve_post_internal("students", post_payload)
-    # ret=eve_patch_internal("students", post_payload)
     return username
 
 
