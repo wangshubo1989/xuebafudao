@@ -46,6 +46,7 @@ def getmysql_token(token):
     gender = ""
     subjecttype = ""
     booktype = ""
+    accid = ""
 
     # 通过token获得学生的uid
     sql = "SELECT uid FROM auth where token = " + " '" + token[6:] + "' "
