@@ -1,6 +1,6 @@
 from tokenauth.auth.token import TokenAuthentication
 from tokenauth.auth.basic import BasicAuthentication
-
+# import os
 # DATE_FORMAT = '%a, %d %b %Y %H:%M:%S GMT'
 DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 
@@ -15,7 +15,7 @@ API_VERSION = 'v1'
 
 TOKEN_SECRET = 'secret'
 
-SERVER_NAME = 'localhost:5000'
+# SERVER_NAME = 'localhost:5000'
 
 teachers = {
     'authentication': TokenAuthentication(),
@@ -49,6 +49,8 @@ teachers = {
         'mobilenumber': {
             'type': 'string',},
         'avatar': {
+            'type': 'string',},
+        'avatarmin': {
             'type': 'string',},
         'gender': {
             'type': 'string',
@@ -187,6 +189,12 @@ courses = {
             'type': 'datetime',},
         'duration': {
             'type': 'integer',},
+        'currentnum': {
+            'type': 'integer',},
+        'totalnum': {
+            'type': 'integer',},
+        'coursename': {
+            'type': 'string',},
         'slides': {
             'type': 'list',
             'schema': {'type': 'string'}},
