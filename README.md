@@ -11,7 +11,7 @@ It is meant to be compatible with the awesome Satellizer project:
 It follows this example: [Satellizer Python Server Example](https://github.com/sahat/satellizer/blob/master/examples/server/python/app.py)
 
 ## Usage
-
+    gunicorn -D -c deploy_config.py fudao:apiapp
 ### Running the Example
 
 To run the example, you will need to have a mongodb setup and change the settings.py to reflect your mongo server's
