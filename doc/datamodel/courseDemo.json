@@ -5,7 +5,12 @@
   "duration": 40,
   "status": "created",
   "slides": [
-    "http://www.xuebaclass.com/img/header.png",
-    "http://www.xuebaclass.com/img/body.png"
-  ]
+    "http://www.xuebaclass.com/img/1.png",
+    "http://www.xuebaclass.com/img/2.png"
+  ],
+  "currentnum": 4,
+  "totalnum": 10,
+  "coursename": "高二基础",
+  "processType": "system",
+  "processID": "57bd234109f67b7bdd017ff3"
 }
