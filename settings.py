@@ -17,7 +17,8 @@ URL_PREFIX = 'fudaoapi'
 API_VERSION = 'v1'
 
 TOKEN_SECRET = 'secret'
-
+JSON = True
+XML = False
 # SERVER_NAME = 'localhost:5000'
 
 teachers = {
