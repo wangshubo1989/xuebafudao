@@ -1,0 +1,14 @@
+{
+  "mainprocess": [
+    "created",
+    "qqcontact",
+    "prepared",
+    "telcontact",
+    "preHostVisit",
+    "started",
+    "completed",
+    "sendReport",
+    "preHostVisit",
+    "closed"
+  ]
+}

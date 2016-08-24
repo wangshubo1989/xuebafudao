@@ -1,0 +1,43 @@
+{
+  "mainprocess": [
+    "created",
+    "prepared",
+    "started",
+    "completed",
+    "sendReport",
+    "closed"
+  ],
+  "childprocess": [
+    {
+      "coursenum": [
+        1,
+        4
+      ],
+      "process": [
+        "created",
+        "telcontact",
+        "prepared",
+        "started",
+        "completed",
+        "sendReport",
+        "closed"
+      ]
+    },
+    {
+      "coursenum": [
+        7,
+        9
+      ],
+      "process": [
+        "created",
+        "telcontact",
+        "prepared",
+        "started",
+        "completed",
+        "sendReport",
+        "telcontact",
+        "closed"
+      ]
+    }
+  ]
+}

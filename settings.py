@@ -99,6 +99,8 @@ teachers = {
                     'type': 'string'},
                     'end': {
                     'type': 'string'},
+                    'organization': {
+                    'type': 'string'},
                     'description': {
                     'type': 'string'}
                 }
@@ -198,12 +200,55 @@ courses = {
             'type': 'integer',},
         'coursename': {
             'type': 'string',},
+        'processType': {
+            'type': 'string',
+            'allowed': ['experience', 'system']},
+        'processID': {
+            'type': 'objectid',
+            'data_relation': {
+                'resource': 'courseProcess',
+                'field': '_id'}
+        },
         'slides': {
             'type': 'list',
             'schema': {'type': 'string'}},
         'status': {
             'type': 'string', 
             'allowed': ['created', 'qqcontact', 'prepared','telcontact', 'preHostVisit', 'started', 'completed', 'sendReport', 'preHostVisit', 'closed']}
+    }
+}
+
+courseProcess = {
+    'authentication': TokenAuthentication(),
+    'resource_methods': ['GET', 'POST', 'DELETE'],
+    'item_methods': ['GET', 'PUT', 'PATCH', 'DELETE'],
+
+    'schema': {
+        'mainprocess': {
+            'type': 'list',
+            'schema': {
+                'type': 'string',
+                'allowed': ['created', 'qqcontact', 'prepared','telcontact', 'preHostVisit', 'started', 'completed', 'sendReport', 'preHostVisit', 'closed']}
+        },
+        'childprocess': {
+            'type': 'list',
+            'schema': {
+                'type': 'dict',
+                'schema': {
+                    'coursenum': {
+                        'type': 'list',
+                        'schema': {
+                            'type': 'integer'}
+                    },
+                    'process': {
+                        'type': 'list',
+                        'schema': {
+                            'type': 'string',
+                            'allowed': ['created', 'qqcontact', 'prepared','telcontact', 'preHostVisit', 'started', 'completed', 'sendReport', 'preHostVisit', 'closed']}
+                    },
+                }
+            }
+        }
     }
 }
 
@@ -235,5 +280,6 @@ DOMAIN = {
     'teachers': teachers,
     'tokens': tokens,
     'students': students,
+    'courseProcess': courseProcess,
     'courses': courses
 }
