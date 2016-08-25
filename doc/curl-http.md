@@ -7,26 +7,9 @@
 ## Usage
     gunicorn -D -c deploy_config.py fudao:apiapp
 
-##辅导RESTAPI接口说明
-http://192.168.0.2:5000/fudaoapi/v1/AAA         支持GET、POST操作
-http://192.168.0.2:5000/fudaoapi/v1/AAA/BBB     支持GET、PUT、PATCH、DELETE操作
-AAA：表示model名称。分别为：teachers、students、courses、courseProcess、token
-BBB：表示某个model的一个具体实例的_id.
-
-teachers、students、courses、courseProcess用token验证
-token用用户名和密码验证
-
-1) 注册账号
-学生的账号注册和获取token都在学吧课堂移动端进行，可以用拿到token可以直接通过辅导后端的验证。
-
-老师的账号注册：
-
-    POST http://192.168.0.2:5000/fudaoapi/v1/teachers
-    username和password必填。
-老师获得token：
-
-	GET http://localhost:5000/fudaoapi/v1/tokens
-
+4) Register an account
+    
+    curl -v -X POST -H "Content-Type: application/json" -d '{"username":"janreyho2","password":"password","nickname":"李老师"}' http://localhost:5000/fudaoapi/v1/teachers
 5) Get a token with that account
 
     curl -v -X GET -H "Content-Type: application/json" -u "janreyho:password" http://localhost:5000/fudaoapi/v1/tokens
