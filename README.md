@@ -1,5 +1,9 @@
 
 
+## install
+    yum install python-devel mysql-devel
+    pip install -r requirements.txt --trusted-host mirrors.aliyun.com
+
 ## Usage
     gunicorn -D -c deploy_config.py fudao:apiapp
 

@@ -19,6 +19,8 @@ API_VERSION = 'v1'
 TOKEN_SECRET = 'secret'
 JSON = True
 XML = False
+
+statusList = ['created', 'qqcontact', 'prepared','telcontact', 'preHostVisit', 'started', 'completed', 'sendReport', 'preHostVisit', 'closed']
 # SERVER_NAME = 'localhost:5000'
 
 teachers = {
@@ -176,19 +178,19 @@ courses = {
 
     'schema': {
         'teacherID': {
-            'type': 'string',
+            'type': 'objectid',
             'required': True,
             'data_relation': {
                 'resource': 'teachers',
-                'field':'username',
+                'field':'_id',
                 'embeddable': True},
         },
         'studentID': {
-            'type': 'string',
+            'type': 'objectid',
             'required': True,
             'data_relation': {
                 'resource': 'students',
-                'field':'username',
+                'field': '_id',
                 'embeddable': True},
         },
         'startTime': {
@@ -201,21 +203,19 @@ courses = {
             'type': 'integer',},
         'coursename': {
             'type': 'string',},
-        'processType': {
-            'type': 'string',
-            'allowed': ['experience', 'system']},
         'processID': {
             'type': 'objectid',
             'data_relation': {
                 'resource': 'courseProcess',
-                'field': '_id'}
+                'field': '_id',
+                'embeddable': True},
         },
         'slides': {
             'type': 'list',
             'schema': {'type': 'string'}},
         'status': {
             'type': 'string', 
-            'allowed': ['created', 'qqcontact', 'prepared','telcontact', 'preHostVisit', 'started', 'completed', 'sendReport', 'preHostVisit', 'closed']}
+            'allowed': statusList}
     }
 }
 
@@ -225,11 +225,14 @@ courseProcess = {
     'item_methods': ['GET', 'PUT', 'PATCH', 'DELETE'],
 
     'schema': {
+        'processType': {
+            'type': 'string',
+            'allowed': ['experience', 'system']},
         'mainprocess': {
             'type': 'list',
             'schema': {
                 'type': 'string',
-                'allowed': ['created', 'qqcontact', 'prepared','telcontact', 'preHostVisit', 'started', 'completed', 'sendReport', 'preHostVisit', 'closed']}
+                'allowed': statusList}
         },
         'childprocess': {
             'type': 'list',
@@ -245,7 +248,7 @@ courseProcess = {
                         'type': 'list',
                         'schema': {
                             'type': 'string',
-                            'allowed': ['created', 'qqcontact', 'prepared','telcontact', 'preHostVisit', 'started', 'completed', 'sendReport', 'preHostVisit', 'closed']}
+                            'allowed': statusList}
                     },
                 }
             }

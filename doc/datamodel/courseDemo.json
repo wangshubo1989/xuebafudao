@@ -1,6 +1,6 @@
 {
-  "teacherID": "lihuan",
-  "studentID": "18513582097",
+  "teacherID": "57b7b7089d7d9be672def83b",
+  "studentID": "57b6e41c9d7d9bd2be3d857a",
   "startTime": "2016-09-01 10:00:00",
   "duration": 40,
   "status": "created",
@@ -11,6 +11,5 @@
   "currentnum": 4,
   "totalnum": 10,
   "coursename": "高二基础",
-  "processType": "system",
-  "processID": "57bd234109f67b7bdd017ff3"
+  "processID": "57be67b19d7d9b1c7f5169ba"
 }
