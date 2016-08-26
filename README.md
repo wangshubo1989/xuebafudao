@@ -66,4 +66,9 @@ http://192.168.0.2:5000/fudaoapi/v1/AAA/BBB     支持GET、PUT、PATCH、DELETE
 	
 	http://192.168.0.2/fudaoapi/v1/courses?where={"teacherID":"lihuan", "startTime":{"$gte":"2016-08-22 11:33:49"} ,"startTime":{"$lte":"2016-09-22 11:35:49"}}&sort=startTime&max_results=2&page=1
 	按老师，上课时间日期范围，且上课时间排序，
+	
+#### 映射查询projection
+	http://localhost:5000/fudaoapi/v1/students?projection={"AAA": 1,"BBB":1,"avatar":1}
+	仅查询所有老师的AAA、BBB字段，例如avatar字段
 
+#### 聚合查询Aggregation
