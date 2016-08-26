@@ -1,0 +1,35 @@
+{
+  "nickname": "巩老师",
+  "realname": "巩学枝",
+  "mobilenumber": "",
+  "avatar": "",
+  "gender": "man",
+  "province": "河北",
+  "city": "邢台",
+  "description": "多年毕业班教学把关老师。善于分析学生情况，调动学生积极性，激发兴趣，挖掘潜力，传授独特的应考技巧。对基础薄弱的学生，使学生很快充满自信，充满激情学习，能让学生在较短时间内见到效果。因人而异，因材施教，扶弱补差。让你在快乐中学习，在学习中成长。",
+  "teachSection": [
+    "seniorSchool",
+    "juniorSchool"
+  ],
+  "teachGrade": [
+    "seniorSync",
+    "seniorReview",
+    "grade-7",
+    "grade-8",
+    "grade-9"
+  ],
+  "certifiedCardID": "130523198905062423",
+  "certifiedPhoto": "",
+  "educated": {
+    "begin": "2009",
+    "end": "2014",
+    "school": "河北工业大学",
+    "level": "bachelor",
+    "certificate": ""
+  },
+  "experiences": [{
+    "begin": "2009.6",
+    "end": "2014.6",
+    "description": "大学期间一直从事家教；曾创办“学知”辅导班；小班授课"
+  }]
+}

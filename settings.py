@@ -211,9 +211,22 @@ courses = {
                 'field': '_id',
                 'embeddable': True},
         },
-        'slides': {
-            'type': 'list',
-            'schema': {'type': 'string'}},
+        # 'slides': {
+        #     'type': 'list',
+        #     'schema': {'type': 'string'}},
+        'slide':{
+                'type': 'dict',
+                'schema': {
+                    'num': {
+                        'type': 'integer'
+                    },
+                    'slides': {
+                        'type': 'list',
+                        'schema': {
+                            'type': 'string'}
+                    },
+                }
+        },
         'status': {
             'type': 'string', 
             'allowed': statusList}
