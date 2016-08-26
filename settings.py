@@ -21,13 +21,14 @@ JSON = True
 XML = False
 
 statusList = ['created', 'qqcontact', 'prepared','telcontact', 'preHostVisit', 'started', 'completed', 'sendReport', 'preHostVisit', 'closed']
+# PROJECTION = True
 # SERVER_NAME = 'localhost:5000'
 
 teachers = {
     'authentication': TokenAuthentication(),
-    'datasource': {
-        'projection': {'password': 0}  # hides password
-    },
+    # 'datasource': {
+    #     'projection': {'password': 0}  # hides password
+    # },
     'public_methods': ['POST'],
     'public_item_methods': [],
     'resource_methods': ['GET', 'POST'],
@@ -114,9 +115,9 @@ teachers = {
 
 students = {
     'authentication': TokenAuthentication(),
-    'datasource': {
-        'projection': {'password': 0}  # hides password
-    },
+    # 'datasource': {
+    #     'projection': {'password': 0}  # hides password
+    # },
     'public_methods': ['POST'],
     'public_item_methods': [],
     'resource_methods': ['GET', 'POST'],

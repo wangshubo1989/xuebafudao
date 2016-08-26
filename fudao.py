@@ -65,6 +65,14 @@ apiapp.config['SWAGGER_HOST'] = '192.168.0.2:5000'
 evewta = EveWithTokenAuth(apiapp)
 apiapp.debug = True
 
+# def on_fetched_resource(resource, response):
+#     for doc in response['_items']:
+#         for field in doc.keys():
+#             if field.startswith('_'):
+#                 del(doc[field])
+#     # del response['_links']
+#     # del response['_meta']
+# apiapp.on_fetched_resource += on_fetched_resource
 # werkzeug_logger = logging.getLogger('werkzeug')
 # werkzeug_logger.setLevel(DEBUG)
 if __name__ == '__main__':
