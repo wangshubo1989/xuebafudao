@@ -40,18 +40,19 @@ http://192.168.0.2:5000/fudaoapi/v1/AAA/BBB     支持GET、PUT、PATCH、DELETE
 	GET http://localhost:5000/fudaoapi/v1/tokens
 	username和password必填。
 
-###2 通用查询信息
+###2 查询数据GET，重点REST查询条件灵活应用。
 
+#### 通用查询，以老师为例
 把所有老师信息（可能几百万条）按 _created:第一顺序 _updated:第二顺序 max_results:一页显示2条 page=2:获取第二页。
 
 可以根据需求更改、添加、删除查询条件：sort、max_results、page。
 
 	http://192.168.0.2:5000/fudaoapi/v1/teachers?sort=_created,-_updated&max_results=2&page=2
+	headers：
+		Content-Type: application/json
+		Authorization: Bearer BBB
 	返回数据中： _id：是辅导后端老师ID。 accid：是云信等老师ID。
 	可以把teachers换成其他model。
-
-
-### 3 查询课程，重点REST查询条件灵活应用。
 
 #### 内嵌其他实例
 可以查询到course信息，内嵌了关联teacher、student、courseProcess的数据，避免多次请求
@@ -72,3 +73,21 @@ http://192.168.0.2:5000/fudaoapi/v1/AAA/BBB     支持GET、PUT、PATCH、DELETE
 	仅查询所有老师的AAA、BBB字段，例如avatar字段
 
 #### 聚合查询Aggregation
+
+### 4 修改数据PUT/PATCH
+	http://localhost:5000/fudaoapi/v1/MMM/CCC
+	headers：
+		Content-Type: application/json
+		If-Match: AAA
+		Authorization: Bearer BBB
+	data：
+		DDD
+	字段解释：
+		AAA:_etag
+		BBB:token
+		MMM:具体model
+		CCC:_id
+		DDD:具体数据
+
+
+[参照细节](http://python-eve.org/features.html)
