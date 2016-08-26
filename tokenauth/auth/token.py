@@ -5,7 +5,7 @@ from eve.auth import TokenAuth
 import jwt
 from flask import current_app as app, request, abort
 from neteaseIM.ServerAPI import neteaseIMsrv
-from neteaseIM.neteaseIM import mysqlhost
+from neteaseIM.neteaseIM import mysql
 import MySQLdb
 from eve.methods.post import post_internal as eve_post_internal
 from eve.methods.patch import patch_internal as eve_patch_internal
@@ -45,7 +45,7 @@ class TokenAuthentication(TokenAuth):
                                         method)
 
 def getmysql_token(token):
-    mysqldb = MySQLdb.connect(mysqlhost,"xueba","Xue-83177","xuebaedu",charset='utf8')
+    mysqldb = MySQLdb.connect(mysql["host"], mysql["user"],mysql["password"],mysql["database"],charset='utf8')
     cursor = mysqldb.cursor()
 
     userid = 0
