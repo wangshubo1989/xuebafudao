@@ -3,7 +3,7 @@
 from datetime import datetime
 from eve.auth import TokenAuth
 import jwt
-from flask import current_app as app, request, abort
+from flask import current_app as app, request, abort, g
 from neteaseIM.ServerAPI import neteaseIMsrv
 from neteaseIM.neteaseIM import mysql
 import MySQLdb
@@ -16,6 +16,7 @@ class TokenAuthentication(TokenAuth):
 
     def check_auth(self, token, allowed_roles, resource, method):
         tokens = app.data.driver.db['tokens']
+        teachers = app.data.driver.db['teachers']
 
         try:
             token, data = parse_token(request)
@@ -25,6 +26,13 @@ class TokenAuthentication(TokenAuth):
             abort(401, "Token is expired")
 
         good_token = tokens.find_one({'token': token})
+
+        account = teachers.find_one({'_id': good_token["account"]})
+        curuser={}
+        curuser["teacherID"] = account['_id']
+        g.curuser=curuser
+        # if account and '_id' in account:
+        #      self.set_request_auth_value(account['_id'])
         return good_token
 
     def authorized(self, allowed_roles, resource, method):
@@ -33,12 +41,19 @@ class TokenAuthentication(TokenAuth):
 
         # hejiayi/Xue8Fudao
         if "Basic aGVqaWF5aTpYdWU4RnVkYW8=" == token:
+            curuser={}
+            g.curuser=curuser
             return token
 
 
         if token and (38 == len(token) or 42 == len(token)):
             username = getmysql_token(token)
             if username:
+                students = app.data.driver.db['students']
+                account = students.find_one({'username': username})
+                curuser={}
+                curuser["studentID"] = account['_id']
+                g.curuser=curuser
                 return username
 
         return token and self.check_auth(token, allowed_roles, resource,

@@ -255,6 +255,20 @@ class Mongo(DataLayer):
             spec[config.LAST_UPDATED] = \
                 {'$gt': req.if_modified_since}
 
+# get.py->_perform_find->app.data.find()
+### －>mongo.py->find()
+# ->base.py->_datasource_ex()
+        if resource == "courses":
+            if "teacherID" in g.curuser:
+                spec["teacherID"]=g.curuser["teacherID"]
+            elif "studentID" in g.curuser:
+                spec["studentID"]=g.curuser["studentID"]
+        elif resource == "students" or resource == "teachers":
+            if "teacherID" in g.curuser:
+                spec["_id"]=g.curuser["teacherID"]
+            elif "studentID" in g.curuser:
+                spec["_id"]=g.curuser["studentID"]
+
         if len(spec) > 0:
             args['filter'] = spec
 
@@ -264,6 +278,7 @@ class Mongo(DataLayer):
         if projection is not None:
             args['projection'] = projection
 
+        print "args:"+ str(args)
         return self.pymongo(resource).db[datasource].find(**args)
 
     def find_one(self, resource, req, **lookup):
