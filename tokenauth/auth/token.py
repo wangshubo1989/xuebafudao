@@ -5,8 +5,10 @@ from eve.auth import TokenAuth
 import jwt
 from flask import current_app as app, request, abort, g
 from neteaseIM.ServerAPI import neteaseIMsrv
-from neteaseIM.neteaseIM import mysql
+from neteaseIM.neteaseIM import mysqlSrv, redisSrv
 import MySQLdb
+import redis
+import json
 from eve.methods.post import post_internal as eve_post_internal
 from eve.methods.patch import patch_internal as eve_patch_internal
 from eve.methods.put import put_internal as eve_put_internal
@@ -47,36 +49,47 @@ class TokenAuthentication(TokenAuth):
 
 
         if token and (38 == len(token) or 42 == len(token)):
-            username = getmysql_token(token)
-            if username:
-                students = app.data.driver.db['students']
-                account = students.find_one({'username': username})
+            studentID = getStudentFromToken(token)
+            # username = getmysql_token(token)
+            if studentID:
+                # students = app.data.driver.db['students']
+                # account = students.find_one({'username': username})
                 curuser={}
-                curuser["studentID"] = account['_id']
+                curuser["studentID"] = studentID
                 g.curuser=curuser
-                return username
+                return True
 
         return token and self.check_auth(token, allowed_roles, resource,
                                         method)
 
-def getmysql_token(token):
-    mysqldb = MySQLdb.connect(mysql["host"], mysql["user"],mysql["password"],mysql["database"],charset='utf8')
-    cursor = mysqldb.cursor()
+def getStudentFromToken(token):
+    student = getredis_token(token)
+    if not student:
+        student = getmysql_token(token)
+        if not student:
+            return False
 
-    userid = 0
-    username = ""
-    gender = ""
-    subjecttype = ""
-    booktype = ""
-    accid = ""
-    nickname = ""
-    mobilenumber = ""
-    email = ""
-    qq = ""
-    province = ""
-    city = ""
-    school = ""
-    NCEEtime = ""
+    if student["uid"]:
+        accid = getStudentAccid(student["uid"])
+        student["accid"] = accid
+    else:
+        return False
+
+    return postStudentMongo(student)
+
+
+def getredis_token(token):
+    r = redis.Redis(host=redisSrv["host"],port=6379,db=0,password=redisSrv["password"])
+    studnetStr = r.hget('USERDATA',token[6:])
+    if studnetStr:
+        student = json.loads(studnetStr)
+        return student
+    return False
+
+
+def getmysql_token(token):
+    mysqldb = MySQLdb.connect(mysqlSrv["host"], mysqlSrv["user"],mysqlSrv["password"],mysqlSrv["database"],charset='utf8')
+    cursor = mysqldb.cursor()
 
     # 通过token获得学生的uid
     sql = "SELECT uid FROM auth where token = " + " '" + token[6:] + "' "
@@ -87,67 +100,77 @@ def getmysql_token(token):
     # 通过uid获得学生信息users
     sql = "SELECT * FROM users where uid = " + str(userid)
     cursor.execute(sql)
+    student={}
     for row in cursor.fetchall():
-        username = row[1]
-        nickname = row[3]
-        mobilenumber = row[6]
-        email = row[7]
-        qq = row[8]
+        student["uid"] = row[0]
+        student["username"] = row[1]
+        student["realname"] = row[3]
+        student["mobilenumber"] = row[6]
+        student["email"] = row[7]
+        student["qq"] = row[8]
+        student["gender"] = row[9]
+        student["birthdate"] = row[10]
+        student["province"] = row[11]
+        student["city"] = row[12]
+        student["school"] = row[13]
+        student["astype"] = row[14]
+        student["teachmaterial"] = row[15]
+        student["nceetime"] = row[16]
+    return student
 
-        if 1 == row[9]:
-            gender = "boy"
-        elif 2 == row[9]:
-            gender = "girl"
-
-        birthdate = row[10]
-        province = row[11]
-        city = row[12]
-        school = row[13]
-
-        if 1 == row[14]:
-            subjecttype = "science"
-        elif 2 == row[14]:
-            subjecttype = "liberal"
-
-        if 1 == row[15]:
-            booktype = "people-A"
-        elif 2 == row[15]:
-            booktype = "people-B"
-
-        NCEEtime = row[16]
+def getStudentAccid(userid): 
+    mysqldb = MySQLdb.connect(mysqlSrv["host"], mysqlSrv["user"],mysqlSrv["password"],mysqlSrv["database"],charset='utf8')
+    cursor = mysqldb.cursor()
     # 通过uid获得学生的云信id：accid
     sql = "SELECT accid FROM imUsers where uid = " + str(userid)
     cursor.execute(sql)
     for row in cursor.fetchall():
         accid = row[0]
+    return accid
+
+def postStudentMongo(student):
+    students = app.data.driver.db['students']
+    ret = students.find_one({'username': student["username"]})
+    if ret:
+        return ret["_id"]
+
+    gender = ""
+    subjecttype = ""
+    booktype = ""
+    if 1 == student["gender"]:
+        gender = "boy"
+    elif 2 == student["gender"]:
+        gender = "girl"
+    if 1 == student["astype"]:
+        subjecttype = "science"
+    elif 2 == student["astype"]:
+        subjecttype = "liberal"
+
+    if 1 == student["teachmaterial"]:
+        booktype = "people-A"
+    elif 2 == student["teachmaterial"]:
+        booktype = "people-B"
 
     post_payload = dict(
-        username=username,
-        nickname=nickname,
-        mobilenumber=mobilenumber,
-        email=email,
-        qq=qq,
+        username=student["username"],
+        nickname=student["realname"],
+        mobilenumber=student["mobilenumber"],
+        email=student["email"],
+        qq=student["qq"],
         gender=gender,
         # birthdate=birthdate,
-        accid=accid,
-        province=province,
-        city=city,
-        school=school,
+        accid=student["accid"],
+        province=student["province"],
+        city=student["city"],
+        school=student["school"],
         subjecttype=subjecttype,
         booktype=booktype,
-        NCEEtime=NCEEtime,
+        NCEEtime=student["nceetime"],
     )
-    print post_payload
 
-    students = app.data.driver.db['students']
-    student = students.find_one({'username': username})
-    if student:
-        lookup = dict(_id=str(student['_id']),)
-        eve_patch_internal("students", post_payload, skip_validation=True, **lookup)
-        return username
-
-    eve_post_internal("students", post_payload)
-    return username
+    ret=eve_post_internal("students", post_payload)
+    if ret:
+        return ret[0]["_id"]
 
 
 def parse_token(req):
