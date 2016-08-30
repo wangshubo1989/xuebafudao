@@ -8,6 +8,7 @@ from tokenauth.eveapp import EveWithTokenAuth
 import flask_admin as admin
 from flask import Blueprint, render_template, jsonify
 from eve_swagger import swagger
+from neteaseIM.neteaseIM import fudaoSrv
 
 
 # Create custom admin view
@@ -77,4 +78,4 @@ apiapp.debug = True
 # werkzeug_logger.setLevel(DEBUG)
 if __name__ == '__main__':
 	# apiapp.debug = True
-	apiapp.run()
+	apiapp.run(fudaoSrv["host"],fudaoSrv["port"])
