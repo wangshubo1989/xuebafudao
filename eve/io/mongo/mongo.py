@@ -278,7 +278,7 @@ class Mongo(DataLayer):
         if projection is not None:
             args['projection'] = projection
 
-        print "args:"+ str(args)
+        # print "args:"+ str(args)
         return self.pymongo(resource).db[datasource].find(**args)
 
     def find_one(self, resource, req, **lookup):
