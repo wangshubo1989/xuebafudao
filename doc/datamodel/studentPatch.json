@@ -1,4 +1,8 @@
 {
+  "parentID": {
+    "gender": "woman",
+    "mobilenumber": "13915"
+  },
   "realname": "李同学",
   "realmobile": "139",
   "realqq": "1234"

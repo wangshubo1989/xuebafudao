@@ -214,6 +214,30 @@ parents = {
     }
 }
 
+teacomments = {
+    'authentication': TokenAuthentication(),
+    'public_item_methods': [],
+    'resource_methods': ['GET', 'POST'],
+    'item_methods': ['GET', 'PUT', 'PATCH', 'DELETE'],
+
+    'schema': {
+        'courseID': {
+            'type': 'objectid',
+            'required': True,
+            'data_relation': {
+                'resource': 'courses',
+                'field': '_id',
+                'embeddable': True},
+        },
+        'scored': {
+            'type': 'string',
+            'required': True,
+            'allowed': ['good', 'normal', 'bad']},
+        'description': {
+            'type': 'string'}
+    }
+}
+
 courses = {
     'authentication': TokenAuthentication(),
     'resource_methods': ['GET', 'POST', 'DELETE'],
@@ -341,6 +365,7 @@ DOMAIN = {
     'teachers': teachers,
     'tokens': tokens,
     'parents': parents,
+    'teacomments': teacomments,
     'students': students,
     'courseProcess': courseProcess,
     'courses': courses
