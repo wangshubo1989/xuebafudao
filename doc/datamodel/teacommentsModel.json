@@ -1,0 +1,23 @@
+{
+  "courseID": {
+    "type": "objectid",
+    "required": 1,
+    "data_relation": {
+      "resource": "courses",
+      "field": "_id",
+      "embeddable": 1
+    }
+  },
+  "scored": {
+    "type": "string",
+    "required": 1,
+    "allowed": [
+      "good",
+      "normal",
+      "bad"
+    ]
+  },
+  "description": {
+    "type": "string"
+  }
+}
