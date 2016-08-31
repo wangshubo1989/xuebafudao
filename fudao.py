@@ -6,10 +6,13 @@ import os
 from eve.flaskapp import Eve
 from tokenauth.eveapp import EveWithTokenAuth
 import flask_admin as admin
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, current_app as app,abort, g
 from eve_swagger import swagger
 from neteaseIM.neteaseIM import fudaoSrv
-
+from eve.methods.common import payload as payload_
+from bson import ObjectId
+from eve.methods.post import post_internal as eve_post_internal
+from eve.methods.patch import patch_internal as eve_patch_internal
 
 # Create custom admin view
 class MyAdminView(admin.BaseView):
@@ -76,6 +79,30 @@ apiapp.debug = True
 # apiapp.on_fetched_resource += on_fetched_resource
 # werkzeug_logger = logging.getLogger('werkzeug')
 # werkzeug_logger.setLevel(DEBUG)
+
+def on_pre_patch_students(resource, request):
+    payload = payload_()
+    if "parentID" not in payload:
+        return
+    g.parent=payload["parentID"]
+    del payload["parentID"]
+
+def on_update_students(updates, original):
+    if g.parent and "parentID" in original:
+        lookup = dict(_id=str(original['parentID']),)
+        ret=eve_patch_internal("parents", g.parent,skip_validation=True, **lookup)
+        return
+
+    if g.parent:
+        g.parent["studentID"]=original["_id"]
+        ret=eve_post_internal("parents", g.parent)
+        if ret and ret[0] and "_id" in ret[0]:
+            updates["parentID"]=str(ret[0]["_id"])
+    return
+
+apiapp.on_pre_PATCH_students += on_pre_patch_students
+apiapp.on_update_students += on_update_students
+
 if __name__ == '__main__':
 	# apiapp.debug = True
 	apiapp.run(fudaoSrv["host"],fudaoSrv["port"])

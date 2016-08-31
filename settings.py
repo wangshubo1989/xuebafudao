@@ -130,6 +130,10 @@ students = {
     },
 
     'schema': {
+        '_id': {
+            'type': 'objectid',
+            'required': True,
+            'unique': True,},
         'username': {
             'type': 'string',
             'required': True,

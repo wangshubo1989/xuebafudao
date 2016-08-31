@@ -103,7 +103,7 @@ def getmysql_token(token):
     cursor.execute(sql)
     student={}
     for row in cursor.fetchall():
-        student["uid"] = row[0]
+        student["uid"] = row[0] +100000000000000000000000
         student["username"] = row[1]
         student["realname"] = row[3]
         student["mobilenumber"] = row[6]
@@ -154,6 +154,7 @@ def postStudentMongo(student):
         booktype = "people-B"
 
     post_payload = dict(
+        _id=str(student["uid"]),
         username=student["username"],
         nickname=student["realname"],
         mobilenumber=student["mobilenumber"],
