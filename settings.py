@@ -39,6 +39,7 @@ teachers = {
         'field': 'username'
     },
 
+    # 'auth_field':'teachers_id',
     'schema': {
         'username': {
             'type': 'string',
@@ -168,7 +169,44 @@ students = {
             'type': 'string',
             'allowed': ['', 'science', 'liberal']},
         'NCEEtime': {
-            'type': 'integer',}
+            'type': 'integer',},
+        'parentID': {
+            'type': 'objectid',
+            'data_relation': {
+                'resource': 'parents',
+                'field': '_id',
+                'embeddable': True},
+        },
+        'realmobile': {
+            'type': 'string',},
+        'realqq': {
+            'type': 'string',},
+    }
+}
+
+parents = {
+    'authentication': TokenAuthentication(),
+    # 'datasource': {
+    #     'projection': {'password': 0}  # hides password
+    # },
+    'public_methods': ['POST'],
+    'public_item_methods': [],
+    'resource_methods': ['GET', 'POST'],
+    'item_methods': ['GET', 'PUT', 'PATCH', 'DELETE'],
+
+    'schema': {
+        'studentID': {
+            'type': 'objectid',
+            'data_relation': {
+                'resource': 'students',
+                'field': '_id',
+                'embeddable': True},
+        },
+        'gender': {
+            'type': 'string',
+            'allowed': ['man', 'woman']},
+        'mobilenumber': {
+            'type': 'string',}
     }
 }
 
@@ -176,6 +214,7 @@ courses = {
     'authentication': TokenAuthentication(),
     'resource_methods': ['GET', 'POST', 'DELETE'],
     'item_methods': ['GET', 'PUT', 'PATCH', 'DELETE'],
+    # 'auth_field':'teachers_id',
 
     'schema': {
         'teacherID': {
@@ -297,6 +336,7 @@ tokens = {
 DOMAIN = {
     'teachers': teachers,
     'tokens': tokens,
+    'parents': parents,
     'students': students,
     'courseProcess': courseProcess,
     'courses': courses

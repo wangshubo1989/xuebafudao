@@ -29,10 +29,12 @@ class TokenAuthentication(TokenAuth):
 
         good_token = tokens.find_one({'token': token})
 
-        account = teachers.find_one({'_id': good_token["account"]})
-        curuser={}
-        curuser["teacherID"] = account['_id']
-        g.curuser=curuser
+        print "good:"+str(good_token)
+        if good_token:
+            account = teachers.find_one({'_id': good_token["account"]})
+            curuser={}
+            curuser["teacherID"] = account['_id']
+            g.curuser=curuser
         # if account and '_id' in account:
         #      self.set_request_auth_value(account['_id'])
         return good_token
@@ -124,6 +126,7 @@ def getStudentAccid(userid):
     # 通过uid获得学生的云信id：accid
     sql = "SELECT accid FROM imUsers where uid = " + str(userid)
     cursor.execute(sql)
+    accid=""
     for row in cursor.fetchall():
         accid = row[0]
     return accid
