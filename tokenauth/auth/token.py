@@ -29,7 +29,6 @@ class TokenAuthentication(TokenAuth):
 
         good_token = tokens.find_one({'token': token})
 
-        print "good:"+str(good_token)
         if good_token:
             account = teachers.find_one({'_id': good_token["account"]})
             curuser={}

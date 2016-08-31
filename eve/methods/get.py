@@ -181,6 +181,9 @@ def _perform_find(resource, lookup):
     # If-Modified-Since disabled on collections (#334)
     req.if_modified_since = None
 
+    # 过滤数据
+    # －>mongo.py->find()
+    # ->base.py->_datasource_ex()
     cursor = app.data.find(resource, req, lookup)
     # If soft delete is enabled, data.find will not include items marked
     # deleted unless req.show_deleted is True
