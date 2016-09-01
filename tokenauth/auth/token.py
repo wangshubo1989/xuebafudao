@@ -188,8 +188,8 @@ def create_jwt_token(user, expiration):
 
     teachers = app.data.driver.db['teachers']
     teacher = teachers.find_one({'_id': user['_id']})
-    if "accid" not in teacher:
-        create_neteaseIM_token(user, accidtoken)
+    # if "accid" not in teacher:
+    create_neteaseIM_token(user, accidtoken)
 
     post_payload = dict(
         account=user['_id'],
@@ -203,17 +203,23 @@ def create_jwt_token(user, expiration):
     abort(401, "error: eve_post_internal tokens")
 
 def create_neteaseIM_token(user,token):
+    teachers = app.data.driver.db['teachers']
+    teacher = teachers.find_one({'_id': user['_id']})
+    ret=""
+    if "accid" in teacher:
+        accid = teacher["accid"]
+        ret = neteaseIMsrv.updateUserId(accid, token=token)
+        if ret["code"] != 200:
+            abort(401, "neteaseIM updateUserId error: "+ ret["desc"])
+        return
 
     accid = uuid.uuid3(uuid.NAMESPACE_DNS, str(user['_id']))
     accid = str(accid)
     accid= accid.replace('-', '')
+    ret = neteaseIMsrv.createUserId(accid, token=token)
+    if ret["code"] != 200:
+        abort(401, "neteaseIM createUserId error: "+ ret["desc"])
 
-    print "accid:"+accid
-    ret1 = neteaseIMsrv.createUserId(accid, token=token)
-    if ret1["code"] != 200:
-        ret2 = neteaseIMsrv.updateUserId(accid, token=token)
-        if ret2["code"] != 200:
-            abort(401, "neteaseIM createUserId error: "+ ret1["desc"]+ "## updateUserId error: " +ret2["desc"])
     patch_payload = dict( accid=accid,)
     lookup = dict(_id=str(user['_id']),)
     ret = eve_patch_internal('teachers', patch_payload, skip_validation=True, **lookup)
