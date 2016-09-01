@@ -1,6 +1,6 @@
 {
-  "nickname": "李老师",
-  "realname": "李欢",
+  "nickname": "何老师",
+  "realname": "何佳毅",
   "mobilenumber": "",
   "avatar": "",
   "gender": "man",
@@ -35,5 +35,9 @@
     "begin": "2014.5",
     "end": "2016.2",
     "description": "在北京巨人学校从事奥数、初高中数学教研教学，多次参与竞赛辅导和命题；"
-  }]
+  }],
+  "labels": [
+    "标签一",
+    "标签二"
+  ],
 }

@@ -110,7 +110,10 @@ teachers = {
                     'type': 'string'}
                 }
             }
-        }
+        },
+        'labels': {
+            'type': 'list',
+            'schema': {'type': 'string'}},
     }
 }
 
