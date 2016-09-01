@@ -51,10 +51,7 @@ class TokenAuthentication(TokenAuth):
 
         if token and (38 == len(token) or 42 == len(token)):
             studentID = getStudentFromToken(token)
-            # username = getmysql_token(token)
             if studentID:
-                # students = app.data.driver.db['students']
-                # account = students.find_one({'username': username})
                 curuser={}
                 curuser["studentID"] = studentID
                 g.curuser=curuser
@@ -70,7 +67,7 @@ def getStudentFromToken(token):
         if not student:
             return False
 
-    if student["uid"]:
+    if student and student["uid"]:
         accid = getStudentAccid(student["uid"])
         student["accid"] = accid
     else:
@@ -182,21 +179,27 @@ def parse_token(req):
 
 
 def create_jwt_token(user, expiration):
-    # payload = dict(
-    #     iat=datetime.utcnow(),
-    #     exp=expiration,
-    #     user=dict(
-    #         id=str(user['_id']),
-    #         username=str(user.get('username'))))
     payload = dict(
         iat=datetime.utcnow(),
         id=str(user['_id']))
     token = jwt.encode(payload, app.config['TOKEN_SECRET'], algorithm='HS256')
-    print token
-    print token[token.rindex('.', 0, len(token)):]
-    create_neteaseIM_token(user, token[token.rindex('.', 0, len(token)):])
+    accidtoken = token[token.rindex('.', 0, len(token)):]
 
-    return token
+    teachers = app.data.driver.db['teachers']
+    teacher = teachers.find_one({'_id': user['_id']})
+    if "accid" not in teacher:
+        create_neteaseIM_token(user, accidtoken)
+
+    post_payload = dict(
+        account=user['_id'],
+        expiration=expiration,
+        token=token.decode('utf8'),
+        accidtoken=accidtoken
+    )
+    ret = eve_post_internal("tokens", post_payload)
+    if ret and ret[3]==201:
+        return post_payload
+    abort(401, "error: eve_post_internal tokens")
 
 def create_neteaseIM_token(user,token):
 
@@ -204,6 +207,7 @@ def create_neteaseIM_token(user,token):
     accid = str(accid)
     accid= accid.replace('-', '')
 
+    print "accid:"+accid
     ret1 = neteaseIMsrv.createUserId(accid, token=token)
     if ret1["code"] != 200:
         ret2 = neteaseIMsrv.updateUserId(accid, token=token)
@@ -211,4 +215,7 @@ def create_neteaseIM_token(user,token):
             abort(401, "neteaseIM createUserId error: "+ ret1["desc"]+ "## updateUserId error: " +ret2["desc"])
     patch_payload = dict( accid=accid,)
     lookup = dict(_id=str(user['_id']),)
-    eve_patch_internal('teachers', patch_payload, skip_validation=True, **lookup)
+    ret = eve_patch_internal('teachers', patch_payload, skip_validation=True, **lookup)
+    if ret and ret[3]==200:
+        return
+    abort(401, "error: eve_post_internal teachers")

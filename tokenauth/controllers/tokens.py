@@ -31,33 +31,7 @@ def generate_login_token_for_user(response):
 
     # generate a token to put into the db for the account
     expiration = datetime.utcnow() + timedelta(days=7)
-    token = create_jwt_token(account, expiration)
-
-    post_payload = dict(
-        account=account['_id'],
-        expiration=expiration,
-        token=token.decode('utf8'),
-        accidtoken=token[token.rindex('.', 0, len(token)):]
-    )
-    post_response = eve_post_internal("tokens", post_payload)
-
-    # # insert the token into the db
-    # insert_token(account, expiration, token)
-
-    # # get tokens from database matching this user
-    # lookup = {"account": account['_id']}
-    # account_tokens = tokens.find(lookup)
-
-    # # add them to the response, without most keys.
-    # items = []
-    # for record in account_tokens:
-
-    #     record.pop('account')
-
-    #     items.append(record)
-    #     break;
-
-    response['_items'] = post_payload
+    response['_items'] = create_jwt_token(account, expiration)
 
     return response
 
