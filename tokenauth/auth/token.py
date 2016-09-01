@@ -90,6 +90,7 @@ def getmysql_token(token):
     cursor = mysqldb.cursor()
 
     # 通过token获得学生的uid
+    userid=""
     sql = "SELECT uid FROM auth where token = " + " '" + token[6:] + "' "
     cursor.execute(sql)
     for row in cursor.fetchall():
