@@ -96,7 +96,7 @@ def getmysql_token(token):
     for row in cursor.fetchall():
         userid = row[0]
 
-    if "" == userid
+    if "" == userid:
         abort(401, "error: userid=null")
 
     # 通过uid获得学生信息users
