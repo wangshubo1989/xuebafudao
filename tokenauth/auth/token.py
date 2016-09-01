@@ -49,7 +49,7 @@ class TokenAuthentication(TokenAuth):
             return token
 
 
-        if token and (38 == len(token) or 42 == len(token)):
+        if token and (100 > len(token)):
             studentID = getStudentFromToken(token)
             if studentID:
                 curuser={}
@@ -65,6 +65,7 @@ def getStudentFromToken(token):
     if not student:
         student = getmysql_token(token)
         if not student:
+            abort(401, "student token is invalid")
             return False
 
     if student and student["uid"]:
@@ -104,7 +105,7 @@ def getmysql_token(token):
     cursor.execute(sql)
     student={}
     for row in cursor.fetchall():
-        student["uid"] = row[0] +100000000000000000000000
+        student["uid"] = row[0]
         student["username"] = row[1]
         student["realname"] = row[3]
         student["mobilenumber"] = row[6]
@@ -155,7 +156,7 @@ def postStudentMongo(student):
         booktype = "people-B"
 
     post_payload = dict(
-        _id=str(student["uid"]),
+        _id=str(student["uid"]+100000000000000000000000),
         username=student["username"],
         nickname=student["realname"],
         mobilenumber=student["mobilenumber"],
@@ -173,9 +174,9 @@ def postStudentMongo(student):
     )
 
     ret=eve_post_internal("students", post_payload)
-    if ret:
+    if ret and ret[3]==201:
         return ret[0]["_id"]
-
+    abort(401, ret)
 
 def parse_token(req):
     token = req.headers.get('Authorization').split()[1]
@@ -203,7 +204,7 @@ def create_jwt_token(user, expiration):
     ret = eve_post_internal("tokens", post_payload)
     if ret and ret[3]==201:
         return post_payload
-    abort(401, "error: eve_post_internal tokens")
+    abort(401, ret)
 
 def create_neteaseIM_token(user,token):
     teachers = app.data.driver.db['teachers']
@@ -213,7 +214,7 @@ def create_neteaseIM_token(user,token):
         accid = teacher["accid"]
         ret = neteaseIMsrv.updateUserId(accid, token=token)
         if ret["code"] != 200:
-            abort(401, "neteaseIM updateUserId error: "+ ret["desc"])
+            abort(401, ret)
         return
 
     accid = uuid.uuid3(uuid.NAMESPACE_DNS, str(user['_id']))
@@ -221,11 +222,11 @@ def create_neteaseIM_token(user,token):
     accid= accid.replace('-', '')
     ret = neteaseIMsrv.createUserId(accid, token=token)
     if ret["code"] != 200:
-        abort(401, "neteaseIM createUserId error: "+ ret["desc"])
+        abort(401, ret)
 
     patch_payload = dict( accid=accid,)
     lookup = dict(_id=str(user['_id']),)
     ret = eve_patch_internal('teachers', patch_payload, skip_validation=True, **lookup)
     if ret and ret[3]==200:
         return
-    abort(401, "error: eve_post_internal teachers")
+    abort(401, ret)
