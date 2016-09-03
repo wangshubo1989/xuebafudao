@@ -13,7 +13,7 @@ from eve.methods.common import payload as payload_
 from bson import ObjectId
 from eve.methods.post import post_internal as eve_post_internal
 from eve.methods.patch import patch_internal as eve_patch_internal
-
+from flask import request
 # Create custom admin view
 class MyAdminView(admin.BaseView):
     @admin.expose('/')
@@ -69,14 +69,16 @@ apiapp.config['SWAGGER_HOST'] = '192.168.0.2:5000'
 evewta = EveWithTokenAuth(apiapp)
 apiapp.debug = True
 
-# def on_fetched_resource(resource, response):
-#     for doc in response['_items']:
-#         for field in doc.keys():
-#             if field.startswith('_'):
-#                 del(doc[field])
-#     # del response['_links']
-#     # del response['_meta']
-# apiapp.on_fetched_resource += on_fetched_resource
+def on_fetched_resource(resource, response):
+    # print request.full_path
+    if(-1 != request.full_path.find("projection=",0,len(request.full_path))):
+        for doc in response['_items']:
+            for field in doc.keys():
+                if field.startswith('_'):
+                    del(doc[field])
+        del response['_links']
+    # del response['_meta']
+apiapp.on_fetched_resource += on_fetched_resource
 # werkzeug_logger = logging.getLogger('werkzeug')
 # werkzeug_logger.setLevel(DEBUG)
 
