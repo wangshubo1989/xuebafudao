@@ -263,10 +263,11 @@ class Mongo(DataLayer):
                 spec["teacherID"]=g.curuser["teacherID"]
             elif "studentID" in g.curuser:
                 spec["studentID"]=g.curuser["studentID"]
-        elif resource == "students" or resource == "teachers":
+        elif resource == "teachers":
             if "teacherID" in g.curuser:
                 spec["_id"]=g.curuser["teacherID"]
-            elif "studentID" in g.curuser:
+        elif resource == "students":
+            if "studentID" in g.curuser:
                 spec["_id"]=g.curuser["studentID"]
 
         if len(spec) > 0:
