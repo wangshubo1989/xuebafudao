@@ -224,12 +224,13 @@ teacomments = {
     'item_methods': ['GET', 'PUT', 'PATCH', 'DELETE'],
 
     'schema': {
-        'courseID': {
+        'teacherID': {
             'type': 'objectid',
+            'unique': True,
             'required': True,
             'data_relation': {
-                'resource': 'courses',
-                'field': '_id',
+                'resource': 'teachers',
+                'field':'_id',
                 'embeddable': True},
         },
         'scored': {
@@ -278,6 +279,13 @@ courses = {
             'type': 'objectid',
             'data_relation': {
                 'resource': 'courseProcess',
+                'field': '_id',
+                'embeddable': True},
+        },
+        'teacommentID': {
+            'type': 'objectid',
+            'data_relation': {
+                'resource': 'teacomments',
                 'field': '_id',
                 'embeddable': True},
         },
