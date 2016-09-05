@@ -133,8 +133,59 @@ def on_update_courses(updates, original):
             return
         abort(415, ret)
     return
+
+# 创建课程时，实时更新老师已预约schedule
+courseStartTime={}
+courseStartTime["09:00:00"] = 1
+courseStartTime["09:45:00"] = 2
+courseStartTime["10:30:00"] = 3
+courseStartTime["11:15:00"] = 4
+courseStartTime["13:45:00"] = 5
+courseStartTime["14:30:00"] = 6
+courseStartTime["15:15:00"] = 7
+courseStartTime["16:00:00"] = 8
+courseStartTime["16:45:00"] = 9
+courseStartTime["19:00:00"] = 10
+courseStartTime["19:45:00"] = 11
+courseStartTime["20:30:00"] = 12
+def on_insert_courses(items):
+    for doc in items:
+        if "startTime" in doc.keys() and "teacherID" in doc.keys():
+            teachers = app.data.driver.db['teachers']
+            teacher = teachers.find_one({'_id': doc["teacherID"]})
+            schedule={}
+            if "schedule" in teacher:
+                schedule = teacher["schedule"]
+
+            syear=str(doc["startTime"].year)
+            smonth=str(doc["startTime"].month)
+            sday=str(doc["startTime"].day)
+            stime=str(doc["startTime"].time())
+            if stime not in courseStartTime:
+                abort(415, "startTime error")
+            snum = str(courseStartTime[stime])
+
+            if syear not in schedule:
+                schedule[syear]={}
+            if smonth not in schedule[syear]:
+                schedule[syear][smonth]={}
+            if sday not in schedule[syear][smonth]:
+                schedule[syear][smonth][sday]={}
+            schedule[syear][smonth][sday][snum]=1
+
+            teacher={}
+            teacher["schedule"] = schedule
+            print teacher
+            lookup = dict(_id=str(doc['teacherID']),)
+            ret=eve_patch_internal("teachers", teacher, **lookup)
+            if ret and ret[3]==200:
+                return
+            abort(415, ret)
+    return
 apiapp.on_pre_PATCH_courses += on_pre_patch_courses
 apiapp.on_update_courses += on_update_courses
+apiapp.on_insert_courses += on_insert_courses
+
 if __name__ == '__main__':
 	# apiapp.debug = True
 	apiapp.run(fudaoSrv["host"],fudaoSrv["port"])

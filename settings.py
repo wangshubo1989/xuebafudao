@@ -114,6 +114,8 @@ teachers = {
         'labels': {
             'type': 'list',
             'schema': {'type': 'string'}},
+        'schedule': {
+            'type': 'dict',},
     }
 }
 
