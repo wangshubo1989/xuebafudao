@@ -90,12 +90,12 @@ def on_pre_patch_students(resource, request):
     del payload["parentID"]
 
 def on_update_students(updates, original):
-    if g.parent and "parentID" in original:
+    if g.get('parent') and "parentID" in original:
         lookup = dict(_id=str(original['parentID']),)
         ret=eve_patch_internal("parents", g.parent,skip_validation=True, **lookup)
         return
 
-    if g.parent:
+    if g.get('parent'):
         g.parent["studentID"]=original["_id"]
         ret=eve_post_internal("parents", g.parent)
         if ret and ret[0] and "_id" in ret[0]:
@@ -113,12 +113,11 @@ def on_pre_patch_courses(resource, request):
     del payload["teacommentID"]
 
 def on_update_courses(updates, original):
-    if g.teacomment and "teacommentID" in original:
+    if g.get('teacomment') and "teacommentID" in original:
         lookup = dict(_id=str(original['teacommentID']),)
         ret=eve_patch_internal("teacomments", g.teacomment,skip_validation=True, **lookup)
         return
-
-    if g.teacomment:
+    if g.get('teacomment'):
         g.teacomment["teacherID"]=original["teacherID"]
         ret=eve_post_internal("teacomments", g.teacomment)
         print ret
