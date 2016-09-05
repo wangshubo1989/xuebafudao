@@ -101,6 +101,9 @@ def on_update_students(updates, original):
         if ret and ret[0] and "_id" in ret[0]:
             updates["parentID"]=str(ret[0]["_id"])
     return
+apiapp.on_pre_PATCH_students += on_pre_patch_students
+apiapp.on_update_students += on_update_students
+
 
 def on_pre_patch_courses(resource, request):
     payload = payload_()
@@ -122,9 +125,6 @@ def on_update_courses(updates, original):
         if ret and ret[0] and "_id" in ret[0]:
             updates["teacommentID"]=str(ret[0]["_id"])
     return
-
-apiapp.on_pre_PATCH_students += on_pre_patch_students
-apiapp.on_update_students += on_update_students
 apiapp.on_pre_PATCH_courses += on_pre_patch_courses
 apiapp.on_update_courses += on_update_courses
 if __name__ == '__main__':
