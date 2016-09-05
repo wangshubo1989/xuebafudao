@@ -82,6 +82,7 @@ apiapp.on_fetched_resource += on_fetched_resource
 # werkzeug_logger = logging.getLogger('werkzeug')
 # werkzeug_logger.setLevel(DEBUG)
 
+# 添加学生家长信息parents
 def on_pre_patch_students(resource, request):
     payload = payload_()
     if "parentID" not in payload:
@@ -109,7 +110,7 @@ def on_update_students(updates, original):
 apiapp.on_pre_PATCH_students += on_pre_patch_students
 apiapp.on_update_students += on_update_students
 
-
+# 添加课程评论teacomments
 def on_pre_patch_courses(resource, request):
     payload = payload_()
     if "teacommentID" not in payload:
