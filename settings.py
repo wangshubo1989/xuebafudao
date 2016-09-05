@@ -226,7 +226,6 @@ teacomments = {
     'schema': {
         'teacherID': {
             'type': 'objectid',
-            'unique': True,
             'required': True,
             'data_relation': {
                 'resource': 'teachers',
