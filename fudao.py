@@ -13,7 +13,9 @@ from eve.methods.common import payload as payload_
 from bson import ObjectId
 from eve.methods.post import post_internal as eve_post_internal
 from eve.methods.patch import patch_internal as eve_patch_internal
+from eve.methods.put import put_internal as eve_put_internal
 from flask import request
+import datetime
 # Create custom admin view
 class MyAdminView(admin.BaseView):
     @admin.expose('/')
@@ -157,7 +159,6 @@ def on_insert_courses(items):
             schedule={}
             if "schedule" in teacher:
                 schedule = teacher["schedule"]
-
             syear=str(doc["startTime"].year)
             smonth=str(doc["startTime"].month)
             sday=str(doc["startTime"].day)
@@ -172,13 +173,19 @@ def on_insert_courses(items):
                 schedule[syear][smonth]={}
             if sday not in schedule[syear][smonth]:
                 schedule[syear][smonth][sday]={}
-            schedule[syear][smonth][sday][snum]=1
 
-            teacher={}
+            now=datetime.datetime.now()
+            for key in schedule.keys():
+                if int(key) < now.year:
+                    del schedule[key]
+            for key in schedule[syear].keys():
+                if int(key) < now.month:
+                    del schedule[syear][key]
+
+            schedule[syear][smonth][sday][snum]=1
             teacher["schedule"] = schedule
-            print teacher
             lookup = dict(_id=str(doc['teacherID']),)
-            ret=eve_patch_internal("teachers", teacher, **lookup)
+            ret=eve_put_internal("teachers", teacher,skip_validation=True,  **lookup)
             if ret and ret[3]==200:
                 return
             abort(415, ret)
