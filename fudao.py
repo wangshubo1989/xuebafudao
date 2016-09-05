@@ -93,13 +93,18 @@ def on_update_students(updates, original):
     if g.get('parent') and "parentID" in original:
         lookup = dict(_id=str(original['parentID']),)
         ret=eve_patch_internal("parents", g.parent,skip_validation=True, **lookup)
-        return
+        if ret and ret[3]==200:
+            return
+        abort(415, ret)
 
     if g.get('parent'):
         g.parent["studentID"]=original["_id"]
         ret=eve_post_internal("parents", g.parent)
-        if ret and ret[0] and "_id" in ret[0]:
-            updates["parentID"]=str(ret[0]["_id"])
+        if ret and ret[3]==201:
+            if "_id" in ret[0]:
+                updates["parentID"]=str(ret[0]["_id"])
+            return
+        abort(415, ret)
     return
 apiapp.on_pre_PATCH_students += on_pre_patch_students
 apiapp.on_update_students += on_update_students
@@ -116,13 +121,17 @@ def on_update_courses(updates, original):
     if g.get('teacomment') and "teacommentID" in original:
         lookup = dict(_id=str(original['teacommentID']),)
         ret=eve_patch_internal("teacomments", g.teacomment,skip_validation=True, **lookup)
-        return
+        if ret and ret[3]==200:
+            return
+        abort(415, ret)
     if g.get('teacomment'):
         g.teacomment["teacherID"]=original["teacherID"]
         ret=eve_post_internal("teacomments", g.teacomment)
-        print ret
-        if ret and ret[0] and "_id" in ret[0]:
-            updates["teacommentID"]=str(ret[0]["_id"])
+        if ret and ret[3]==201:
+            if "_id" in ret[0]:
+                updates["teacommentID"]=str(ret[0]["_id"])
+            return
+        abort(415, ret)
     return
 apiapp.on_pre_PATCH_courses += on_pre_patch_courses
 apiapp.on_update_courses += on_update_courses
