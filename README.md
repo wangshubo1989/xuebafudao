@@ -43,7 +43,7 @@ http://192.168.0.2:5000/fudaoapi/v1/AAA/BBB     支持GET、PUT、PATCH、DELETE
 ###2 查询数据GET，重点REST查询条件灵活应用。
 
 #### 通用查询，以老师为例
-把所有老师信息（可能几百万条）按 _created:第一顺序 _updated:第二顺序 max_results:一页显示2条 page=2:获取第二页。
+把所有老师信息（可能几百万条）按 _created(升序):第一顺序 -_updated(-为降序):第二顺序 max_results:一页显示2条 page=2:获取第二页。
 
 可以根据需求更改、添加、删除查询条件：sort、max_results、page。
 

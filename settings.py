@@ -19,6 +19,9 @@ API_VERSION = 'v1'
 TOKEN_SECRET = 'secret'
 JSON = True
 XML = False
+JSON_SORT_KEYS = True
+OPLOG = True
+OPLOG_ENDPOINT = 'oplog'
 
 statusList = ['created', 'qqcontact', 'prepared','telcontact', 'preHostVisit', 'started', 'completed', 'sendReport', 'preHostVisit', 'closed']
 # PROJECTION = True
