@@ -235,9 +235,9 @@ teacomments = {
                 'embeddable': True},
         },
         'scored': {
-            'type': 'string',
+            'type': 'integer',
             'required': True,
-            'allowed': ['good', 'normal', 'bad']},
+            'allowed': [1, 2, 3, 4, 5]},
         'description': {
             'type': 'string'}
     }
