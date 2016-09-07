@@ -61,6 +61,9 @@ http://192.168.0.2:5000/fudaoapi/v1/AAA/BBB     支持GET、PUT、PATCH、DELETE
 	teacherID：为老师实例中的_id
 	embeded：表示返回课程实例的内存实例
 	
+	http://localhost:5000/fudaoapi/v1/courses?embedded={"teacommentID":1,"teacommentID.teacherID":1}
+	多层内嵌：courses里内嵌teacomments，teacomments里内嵌teachers
+
 #### 按时间区间查询
 	http://192.168.0.2:5000/fudaoapi/v1/teachers?where={"username":"lihuan", "_updated":{"$gte":"2016-08-21 07:23:30"} ,"_updated":{"$lte":"2016-08-22 07:23:30"}}
 	按username为lihuan，2016-08-21 07:23:30<更新资料时间<2016-08-22 07:23:30查询老师
