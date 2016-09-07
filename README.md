@@ -74,6 +74,9 @@ http://192.168.0.2:5000/fudaoapi/v1/AAA/BBB     支持GET、PUT、PATCH、DELETE
 
 #### 聚合查询Aggregation
 
+
+#### GET某一个版本的json
+	http://localhost:5000/fudaoapi/v1/students/100000000000000000000121?version=3
 ### 4 修改数据PUT/PATCH
 	http://localhost:5000/fudaoapi/v1/MMM/CCC
 	headers：

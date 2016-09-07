@@ -152,7 +152,7 @@ PROJECTION = True               # projection enabled by default
 PAGINATION = True               # pagination enabled by default.
 PAGINATION_LIMIT = 50
 PAGINATION_DEFAULT = 25
-VERSIONING = False              # turn document versioning on or off.
+VERSIONING = True              # turn document versioning on or off.http://localhost:5000/fudaoapi/v1/students/100000000000000000000121?version=3
 VERSIONS = '_versions'          # suffix for parallel collection w/old versions
 VERSION_PARAM = 'version'       # URL param for specific version of a document.
 INTERNAL_RESOURCE = False       # resources are public by default.
