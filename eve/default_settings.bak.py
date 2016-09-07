@@ -146,7 +146,7 @@ IF_MATCH = True                 # IF_MATCH (ETag match) enabled by default.
 ALLOWED_FILTERS = ['*']         # filtering enabled by default
 VALIDATE_FILTERS = False
 SORTING = True                  # sorting enabled by default.
-JSON_SORT_KEYS = True          # json key sorting
+JSON_SORT_KEYS = False          # json key sorting
 EMBEDDING = True                # embedding enabled by default
 PROJECTION = True               # projection enabled by default
 PAGINATION = True               # pagination enabled by default.
@@ -161,9 +161,9 @@ SOFT_DELETE = False             # soft delete disabled by default.
 SHOW_DELETED_PARAM = 'show_deleted'
 BULK_ENABLED = True
 
-OPLOG = True                   # oplog is disabled by default.
+OPLOG = False                   # oplog is disabled by default.
 OPLOG_NAME = 'oplog'            # default oplog resource name.
-OPLOG_ENDPOINT = 'oplog'           # oplog endpoint is disabled by default.
+OPLOG_ENDPOINT = None           # oplog endpoint is disabled by default.
 OPLOG_AUDIT = True              # oplog audit enabled by default.
 OPLOG_METHODS = ['DELETE',
                  'POST',
@@ -201,7 +201,7 @@ MEDIA_BASE_URL = None
 
 MULTIPART_FORM_FIELDS_AS_JSON = False
 
-SCHEMA_ENDPOINT = 'schema'
+SCHEMA_ENDPOINT = None
 
 # list of extra fields to be included with every POST response. This list
 # should not include the 'standard' fields (ID_FIELD, LAST_UPDATED,
