@@ -16,6 +16,7 @@ from eve.methods.patch import patch_internal as eve_patch_internal
 from eve.methods.put import put_internal as eve_put_internal
 from flask import request
 import datetime
+import json
 # Create custom admin view
 class MyAdminView(admin.BaseView):
     @admin.expose('/')
@@ -159,13 +160,13 @@ def on_insert_courses(items):
             schedule={}
             if "schedule" in teacher:
                 schedule = teacher["schedule"]
-            syear=str(doc["startTime"].year)
-            smonth=str(doc["startTime"].month)
-            sday=str(doc["startTime"].day)
-            stime=str(doc["startTime"].time())
-            if stime not in courseStartTime:
-                abort(415, "startTime error")
-            snum = str(courseStartTime[stime])
+
+            # startime = datetime.datetime.strptime(str(doc["startTime"]), "%Y-%m-%d %H:%M:%S")
+            startime = doc["startTime"]
+            syear=str(startime.year)
+            smonth=str(startime.month)
+            sday=str(startime.day)
+            stime=str(startime.time())
 
             if syear not in schedule:
                 schedule[syear]={}
@@ -178,17 +179,20 @@ def on_insert_courses(items):
             for key in schedule.keys():
                 if int(key) < now.year:
                     del schedule[key]
+                    # teachers.update_one({"_id":doc["teacherID"]},{"$unset":{"schedule."+key:1}})
             for key in schedule[syear].keys():
                 if int(key) < now.month:
                     del schedule[syear][key]
 
+
+            if stime not in courseStartTime:
+                abort(415, "startTime error")
+            snum = str(courseStartTime[stime])
             schedule[syear][smonth][sday][snum]=1
-            teacher["schedule"] = schedule
-            lookup = dict(_id=str(doc['teacherID']),)
-            ret=eve_put_internal("teachers", teacher,skip_validation=True,  **lookup)
-            if ret and ret[3]==200:
-                return
-            abort(415, ret)
+
+            teachers.update_one({"_id":doc["teacherID"]},{"$set":{"schedule":schedule}})
+
+            # ret=eve_put_internal("teachers", teacher,skip_validation=True,  **lookup)
     return
 apiapp.on_pre_PATCH_courses += on_pre_patch_courses
 apiapp.on_update_courses += on_update_courses
