@@ -95,6 +95,8 @@ http://192.168.0.2:5000/fudaoapi/v1/AAA/BBB     支持GET、PUT、PATCH、DELETE
 		CCC:_id
 		DDD:具体数据
 
-
+##pymongo
+	//$set, $unset
+	teachers.update_one({"_id":doc["teacherID"]},{"$set":{"schedule":schedule}})
 * [参照细节](http://python-eve.org/features.html)
 * [RESTful API 设计指南](http://www.ruanyifeng.com/blog/2014/05/restful_api.html)
