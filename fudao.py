@@ -116,7 +116,7 @@ def on_update_students(updates, original):
 apiapp.on_pre_PATCH_students += on_pre_patch_students
 apiapp.on_update_students += on_update_students
 
-# 添加课程评论teacomments
+# 添加课程评论teacomments,计算老师平均分
 def on_pre_patch_courses(resource, request):
     payload = payload_()
     if "teacommentID" not in payload:
@@ -209,11 +209,11 @@ def on_insert_courses(items):
 
             now=datetime.datetime.now()
             for key in schedule.keys():
-                if int(key) < now.year:
+                if key !="month" and key !="week" and key !="day" and int(key) < now.year:
                     del schedule[key]
                     # teachers.update_one({"_id":doc["teacherID"]},{"$unset":{"schedule."+key:1}})
             for key in schedule[syear].keys():
-                if int(key) < now.month:
+                if key !="month" and key !="week" and key !="day" and int(key) < now.month:
                     del schedule[syear][key]
 
 

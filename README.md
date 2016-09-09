@@ -103,5 +103,6 @@ http://192.168.0.2:5000/fudaoapi/v1/AAA/BBB     支持GET、PUT、PATCH、DELETE
 ##pymongo
 	//update_one,$set, $unset
 	teachers.update_one({"_id":doc["teacherID"]},{"$set":{"schedule":schedule}})
+	//objectID:4time-3machine-2pid-3inc
 * [参照细节](http://python-eve.org/features.html)
 * [RESTful API 设计指南](http://www.ruanyifeng.com/blog/2014/05/restful_api.html)
