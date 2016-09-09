@@ -74,6 +74,9 @@ apiapp.debug = True
 
 def on_fetched_resource(resource, response):
     # print request.full_path
+    for doc in response['_items']:
+        if "password" in doc.keys():
+            del(doc["password"])
     if(-1 != request.full_path.find("projection=",0,len(request.full_path))):
         for doc in response['_items']:
             for field in doc.keys():
