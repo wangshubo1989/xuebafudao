@@ -31,9 +31,12 @@ class TokenAuthentication(TokenAuth):
 
         if good_token:
             account = teachers.find_one({'_id': good_token["account"]})
-            curuser={}
-            curuser["teacherID"] = account['_id']
-            g.curuser=curuser
+            if account:
+                curuser={}
+                curuser["teacherID"] = account['_id']
+                g.curuser=curuser
+            else:
+                abort(401, "Token is cleaned")
         # if account and '_id' in account:
         #      self.set_request_auth_value(account['_id'])
         return good_token

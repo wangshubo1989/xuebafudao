@@ -118,7 +118,20 @@ teachers = {
             'type': 'list',
             'schema': {'type': 'string'}},
         'schedule': {
-            'type': 'dict',},
+            'type': 'dict',
+            'schema': {
+                    'month': {
+                    'type': 'dict'},
+                    'week': {
+                    'type': 'dict'},
+                    'day': {
+                    'type': 'dict'},
+                    '2016': {
+                    'type': 'dict'},
+                    '2017': {
+                    'type': 'dict'}
+                }
+        },
     }
 }
 
