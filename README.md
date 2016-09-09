@@ -8,6 +8,9 @@
     gunicorn -D -c deploy_config.py fudao:apiapp
     
 ##model说明
+
+	http://192.168.0.2:5000/fudaoapi/v1/schema  //查看系统模型
+	http://192.168.0.2:5000/fudaoapi/v1/oplog   //查看系统日志
 [各model和demo](https://github.com/janreyho/xuebafudao/tree/mysql/doc/datamodel)分别为：teachers、students、courses、courseProcess（课程流程模型，包括体验课和系列课）、token。
 
 * 字段说明：首字符为_的字段，为系统内部字段。
@@ -94,6 +97,8 @@ http://192.168.0.2:5000/fudaoapi/v1/AAA/BBB     支持GET、PUT、PATCH、DELETE
 		MMM:具体model
 		CCC:_id
 		DDD:具体数据
+##mongo
+	mongo --port 27017 -u "mongoDB" -p "Xue8Mongo" --authenticationDatabase "admin"
 
 ##pymongo
 	//update_one,$set, $unset
