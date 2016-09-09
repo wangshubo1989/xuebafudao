@@ -132,6 +132,8 @@ teachers = {
                     'type': 'dict'}
                 }
         },
+        'avgScore': {
+            'type': 'number',},
     }
 }
 
@@ -250,11 +252,25 @@ teacomments = {
                 'field':'_id',
                 'embeddable': True},
         },
+        'courseID': {
+            'type': 'objectid',
+            'required': True,
+            'data_relation': {
+                'resource': 'courses',
+                'field':'_id',
+                'embeddable': True},
+        },
         'scored': {
             'type': 'integer',
             'required': True,
             'allowed': [1, 2, 3, 4, 5]},
         'description': {
+            'type': 'string'},
+        'studentname': {
+            'type': 'string'},
+        'coursename': {
+            'type': 'string'},
+        'replay': {
             'type': 'string'}
     }
 }

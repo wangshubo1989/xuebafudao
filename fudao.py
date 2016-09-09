@@ -126,6 +126,18 @@ def on_pre_patch_courses(resource, request):
 
 def on_update_courses(updates, original):
     if g.get('teacomment') and "teacommentID" in original:
+        teacomments = app.data.driver.db['teacomments']
+        teacomment = teacomments.find_one({'_id': original["teacommentID"]})
+        count = teacomments.find({"teacherID":original["teacherID"]}).count()
+        teachers = app.data.driver.db['teachers']
+        teacher = teachers.find_one({'_id': original["teacherID"]})
+        avgScore = 0
+        if "avgScore" in teacher:
+            avgScore = teacher["avgScore"]
+        scoreChange = g.teacomment["scored"] - teacomment["scored"]
+        avgScore = (avgScore * count + scoreChange)/(count+0.0)
+        teachers.update_one({"_id":original["teacherID"]},{"$set":{"avgScore":avgScore}})
+
         lookup = dict(_id=str(original['teacommentID']),)
         ret=eve_patch_internal("teacomments", g.teacomment,skip_validation=True, **lookup)
         if ret and ret[3]==200:
@@ -133,10 +145,33 @@ def on_update_courses(updates, original):
         abort(415, ret)
     if g.get('teacomment'):
         g.teacomment["teacherID"]=original["teacherID"]
+        g.teacomment["courseID"]=original["_id"]
+        if "coursename" in original:
+            g.teacomment["coursename"]=original["coursename"]
+
+        students = app.data.driver.db['students']
+        student = students.find_one({'_id': original["studentID"]})
+        if "realname" in student:
+            g.teacomment["studentname"]=student["realname"]
+        elif "nickname" in student:
+            g.teacomment["studentname"]=student["nickname"]
+
+        teacomments = app.data.driver.db['teacomments']
+        count = teacomments.find({"teacherID":original["teacherID"]}).count()
+
+        teachers = app.data.driver.db['teachers']
+        teacher = teachers.find_one({'_id': original["teacherID"]})
+        avgScore = 0
+        if "avgScore" in teacher:
+            avgScore = teacher["avgScore"]
+        avgScore = (avgScore * count + g.teacomment["scored"])/(count + 1.0)
+
+        teachers.update_one({"_id":original["teacherID"]},{"$set":{"avgScore":avgScore}})
+
         ret=eve_post_internal("teacomments", g.teacomment)
         if ret and ret[3]==201:
             if "_id" in ret[0]:
-                updates["teacommentID"]=str(ret[0]["_id"])
+                updates["teacommentID"]=ret[0]["_id"]
             return
         abort(415, ret)
     return
