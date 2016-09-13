@@ -17,6 +17,17 @@ from eve.methods.put import put_internal as eve_put_internal
 from flask import request
 import datetime
 import json
+from neteaseIM.workecAPI import workecSrv
+
+# ret = workecSrv.gettoken()
+# if "errCode" not in ret or ret["errCode"] != 200:
+#     abort(401, ret)
+# print ret["data"]["accessToken"]
+
+# data = {"realname":"ceshi","realmobile":"13562859911","parentmoblie":"13562859911","parentrelation":"baba","realqq":"421"}
+# ret = workecSrv.addcustomer(data,ret["data"]["accessToken"])
+# if "errCode" not in ret or ret["errCode"] != 200:
+#     abort(401, ret)
 # Create custom admin view
 class MyAdminView(admin.BaseView):
     @admin.expose('/')
@@ -88,15 +99,51 @@ apiapp.on_fetched_resource += on_fetched_resource
 # werkzeug_logger = logging.getLogger('werkzeug')
 # werkzeug_logger.setLevel(DEBUG)
 
+def addToworkec(payload):
+    ret = workecSrv.gettoken()
+    if "errCode" not in ret or ret["errCode"] != 200:
+        abort(401, ret)
+    print ret["data"]["accessToken"]
+
+    realname = ""
+    realmobile = ""
+    parentmoblie = ""
+    parentrelation = ""
+    realqq =""
+    if "realname" in payload:
+        realname = payload["realname"]
+    if "realmobile" in payload:
+        realmobile = payload["realmobile"]
+    if "mobilenumber" in payload["parentID"]:
+        parentmoblie = payload["parentID"]["mobilenumber"]
+    if "gender" in payload["parentID"]:
+        parentrelation = payload["parentID"]["gender"]
+    if "realqq" in payload:
+        realqq = payload["realqq"]
+
+    data = {"realname":realname,
+        "realmobile":realmobile,
+        "parentmoblie":parentmoblie,
+        "parentrelation":parentrelation,
+        "realqq":realqq}
+    ret = workecSrv.addcustomer(data,ret["data"]["accessToken"])
+    if "errCode" not in ret or ret["errCode"] != 200:
+        abort(401, ret)
+
+
 # 添加学生家长信息parents
 def on_pre_patch_students(resource, request):
     payload = payload_()
     if "parentID" not in payload:
         return
+
+    addToworkec(payload)
+
     g.parent=payload["parentID"]
     del payload["parentID"]
 
 def on_update_students(updates, original):
+
     if g.get('parent') and "parentID" in original:
         lookup = dict(_id=str(original['parentID']),)
         ret=eve_patch_internal("parents", g.parent,skip_validation=True, **lookup)
