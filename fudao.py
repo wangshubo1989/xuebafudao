@@ -99,27 +99,26 @@ apiapp.on_fetched_resource += on_fetched_resource
 # werkzeug_logger = logging.getLogger('werkzeug')
 # werkzeug_logger.setLevel(DEBUG)
 
-def addToworkec(payload):
+def addToworkec(student,parent):
     ret = workecSrv.gettoken()
     if "errCode" not in ret or ret["errCode"] != 200:
         abort(401, ret)
-    print ret["data"]["accessToken"]
 
     realname = ""
     realmobile = ""
     parentmoblie = ""
     parentrelation = ""
     realqq =""
-    if "realname" in payload:
-        realname = payload["realname"]
-    if "realmobile" in payload:
-        realmobile = payload["realmobile"]
-    if "mobilenumber" in payload["parentID"]:
-        parentmoblie = payload["parentID"]["mobilenumber"]
-    if "gender" in payload["parentID"]:
-        parentrelation = payload["parentID"]["gender"]
-    if "realqq" in payload:
-        realqq = payload["realqq"]
+    if "realname" in student:
+        realname = student["realname"]
+    if "realmobile" in student:
+        realmobile = student["realmobile"]
+    if "mobilenumber" in parent:
+        parentmoblie = parent["mobilenumber"]
+    if "gender" in parent:
+        parentrelation = parent["gender"]
+    if "realqq" in student:
+        realqq = student["realqq"]
 
     data = {"realname":realname,
         "realmobile":realmobile,
@@ -137,17 +136,15 @@ def on_pre_patch_students(resource, request):
     if "parentID" not in payload:
         return
 
-    addToworkec(payload)
-
     g.parent=payload["parentID"]
     del payload["parentID"]
 
 def on_update_students(updates, original):
-
     if g.get('parent') and "parentID" in original:
         lookup = dict(_id=str(original['parentID']),)
-        ret=eve_patch_internal("parents", g.parent,skip_validation=True, **lookup)
+        ret=eve_patch_internal("parents", g.parent, **lookup)
         if ret and ret[3]==200:
+            addToworkec(updates,g.parent)
             return
         abort(415, ret)
 
@@ -157,6 +154,7 @@ def on_update_students(updates, original):
         if ret and ret[3]==201:
             if "_id" in ret[0]:
                 updates["parentID"]=str(ret[0]["_id"])
+            addToworkec(updates,g.parent)
             return
         abort(415, ret)
     return

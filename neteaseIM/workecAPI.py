@@ -1,11 +1,11 @@
 #! /usr/bin/env python
 # coding=utf-8
 '''
- * 网易云信server API 接口 1.6
+ * 腾讯 workec API 接口 1.6
  * Class ServerAPI
- * @author  hzchensheng15@corp.netease.com
- * @date    2015-10-28  16:30
- * 
+ * @author  janreyho@gmail.com
+ * @date    2016-8-28  16:30
+ *
 '''
 
 import urllib2,urllib
@@ -38,7 +38,6 @@ class workecAPI():
         return json.loads(response.text)
 
     def addcustomer(self,data,token):
-        print data
         url = "https://open.workec.com/customer/create"
 
         payload = dict({
@@ -47,9 +46,9 @@ class workecAPI():
           "fieldNameMapping": [
             "f_name",
             "f_mobile",
+            "f_qq",
             "81055023",
-            "81054636",
-            "81055075",
+            "81054636"
           ],
           "customFieldMapping": {
             "81055023": {
@@ -59,19 +58,15 @@ class workecAPI():
             "81054636": {
               "option_id": "",
               "type": "1"
-            },
-            "81055075": {
-              "option_id": "",
-              "type": "1"
             }
           },
           "fieldValueList": [
             [
                 data["realname"],
                 data["realmobile"],
+                data["realqq"],
                 data["parentmoblie"],
                 data["parentrelation"],
-                data["realqq"]
             ]
           ]
         })
@@ -80,9 +75,7 @@ class workecAPI():
             'authorization': token,
             'corp-id': self.corpId,
             }
-        print payload
         response = requests.request("POST", url, data=payload, headers=headers)
-        print(response.text)
         return json.loads(response.text)
 
 workecSrv = workecAPI(workec["appId"], workec["appSecret"], workec["corpId"])
