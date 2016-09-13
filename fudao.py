@@ -135,6 +135,13 @@ def on_pre_patch_students(resource, request):
     payload = payload_()
     if "parentID" not in payload:
         return
+    # yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
+    today = datetime.datetime.combine(datetime.date.today(), datetime.time())
+    today = today - datetime.timedelta(hours=8)
+    parents = app.data.driver.db['parents']
+    count = 14
+    if count < parents.find({"_created":{"$gte":today}}).count():
+        abort(415, "Today reservation " + str(count+1))
 
     g.parent=payload["parentID"]
     del payload["parentID"]
